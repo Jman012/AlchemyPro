@@ -16,6 +16,15 @@
 	delegate = dlg;
 }
 
+- (id)init {
+    if((self = [super init])){
+        self.userInteractionEnabled = TRUE;
+        self.textColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor grayColor];
+    }
+    return self;
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     //Send back a notification of a touch to the owner, including the photo ID and index
 	CGPoint pt = [[touches anyObject] locationInView:self];
