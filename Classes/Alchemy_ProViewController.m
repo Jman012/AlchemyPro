@@ -82,7 +82,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [[event allTouches] anyObject];
     if([touch view] == boardView){
-        NSLog(@"Touched %@", [touch view]);
+//        NSLog(@"Touched %@", [touch view]);
     }
 }
 
