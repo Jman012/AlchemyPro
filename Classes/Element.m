@@ -39,8 +39,13 @@
     CGRect frame = [self frame];
     frame.origin.x += pt.x - startPosition.x;
     frame.origin.y += pt.y - startPosition.y;
-    NSLog(@"Element Moved! %f: %f", pt.x, pt.y);
-    self.frame = frame;
+    //Fix minor bugs, hard to explain, may need alteration to original code ^
+    if(frame.origin.x >= 0 &&
+       frame.origin.y >= 0 &&
+       frame.origin.x <= 352 &&
+       frame.origin.y <= 252){
+        self.frame = frame;
+    }
 }
 
 @end

@@ -2002,9 +2002,9 @@
 		<string>PrimaryDocumentSelectedCharacterRange</string>
 		<string>PrimaryDocumentTimestamp</string>
 		<string>PrimaryDocumentVisibleCharacterRange</string>
-		<string>{520, 0}</string>
-		<real>307433750.99486601</real>
-		<string>{0, 1264}</string>
+		<string>{1354, 0}</string>
+		<real>307435220.06876302</real>
+		<string>{0, 1399}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -2395,9 +2395,9 @@
 				</dict>
 			</array>
 		</dict>
-		<string>{1857, 0}</string>
-		<real>307433761.00902498</real>
-		<string>{709, 2313}</string>
+		<string>{1912, 0}</string>
+		<real>307434956.68629301</real>
+		<string>{709, 2269}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -3416,7 +3416,12 @@
 				<integer>53</integer>
 			</dict>
 			<key>NS.objects</key>
-			<array/>
+			<array>
+				<dict>
+					<key>CF$UID</key>
+					<integer>260</integer>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>$class</key>
@@ -3481,12 +3486,7 @@
 				<integer>53</integer>
 			</dict>
 			<key>NS.objects</key>
-			<array>
-				<dict>
-					<key>CF$UID</key>
-					<integer>3</integer>
-				</dict>
-			</array>
+			<array/>
 		</dict>
 		<dict>
 			<key>$class</key>
@@ -3555,7 +3555,7 @@
 				<integer>275</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/jman012guy/AlchemyPro/Classes/Alchemy_ProViewController.m</string>
+		<string>file://localhost/Users/jman012guy/AlchemyPro/Classes/Element.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -3573,7 +3573,7 @@
 				<integer>277</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/jman012guy/AlchemyPro/Classes/Element.m</string>
+		<string>file://localhost/Users/jman012guy/AlchemyPro/en.lproj/Alchemy_ProViewController.xib</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -3591,7 +3591,7 @@
 				<integer>279</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/jman012guy/AlchemyPro/Classes/Alchemy_ProViewController.h</string>
+		<string>file://localhost/Users/jman012guy/AlchemyPro/Classes/Alchemy_ProViewController.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -3609,7 +3609,7 @@
 				<integer>281</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/var/folders/Ht/HtDCtwYFHNiaK4p0Ij1sB++++TI/-Tmp-/__kill_disassembly_81DB9536-A59D-4256-8AC3-5C085F20F9FF.nasm</string>
+		<string>file://localhost/Users/jman012guy/AlchemyPro/Classes/Alchemy_ProViewController.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -3627,7 +3627,7 @@
 				<integer>283</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/jman012guy/AlchemyPro/Classes/Element.h</string>
+		<string>file://localhost/var/folders/Ht/HtDCtwYFHNiaK4p0Ij1sB++++TI/-Tmp-/__kill_disassembly_81DB9536-A59D-4256-8AC3-5C085F20F9FF.nasm</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -3645,7 +3645,7 @@
 				<integer>285</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/jman012guy/AlchemyPro/en.lproj/Alchemy_ProViewController.xib</string>
+		<string>file://localhost/Users/jman012guy/AlchemyPro/Classes/Element.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -3853,7 +3853,7 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>13</integer>
+					<integer>373</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -4127,9 +4127,9 @@
 				</dict>
 			</array>
 		</dict>
-		<string>-boardAddElement:</string>
-		<string>@implementation Alchemy_ProViewController</string>
-		<string>Alchemy_ProViewController.m</string>
+		<string>-touchesMoved:withEvent:</string>
+		<string>@implementation Element</string>
+		<string>Element.m</string>
 		<string>Classes</string>
 		<string>Alchemy Pro</string>
 		<integer>2</integer>
@@ -4140,9 +4140,9 @@
 				<integer>343</integer>
 			</dict>
 			<key>characterRangeLen</key>
-			<integer>43</integer>
+			<integer>64</integer>
 			<key>characterRangeLoc</key>
-			<integer>1730</integer>
+			<integer>931</integer>
 			<key>documentURL</key>
 			<dict>
 				<key>CF$UID</key>
@@ -4162,8 +4162,8 @@
 				<integer>342</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/jman012guy/AlchemyPro/Classes/Alchemy_ProViewController.m</string>
-		<real>307433541.295726</real>
+		<string>file://localhost/Users/jman012guy/AlchemyPro/Classes/Element.m</string>
+		<real>307435315.50183302</real>
 		<dict>
 			<key>$classes</key>
 			<array>
@@ -4220,9 +4220,9 @@
 				</dict>
 			</array>
 		</dict>
-		<string>{1857, 0}</string>
-		<real>307433761.01039702</real>
-		<string>{709, 2313}</string>
+		<string>{1260, 0}</string>
+		<real>307435319.66363502</real>
+		<string>{0, 1426}</string>
 		<string>Xcode.IDEKit.EditorDocument.SourceCode</string>
 		<dict>
 			<key>$class</key>
@@ -4241,7 +4241,7 @@
 				<integer>351</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/jman012guy/AlchemyPro/Classes/Alchemy_ProViewController.m</string>
+		<string>file://localhost/Users/jman012guy/AlchemyPro/Classes/Element.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -5137,7 +5137,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>1420</real>
+		<real>1160</real>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -5169,7 +5169,7 @@
 		</dict>
 		<string>IDEUtilitiesArea</string>
 		<real>260</real>
-		<string>Alchemy_ProViewController.m</string>
+		<string>Element.m</string>
 	</array>
 	<key>$top</key>
 	<dict>
