@@ -7,10 +7,10 @@
 
 #import "Element.h"
 
-
 @implementation Element
 
-@synthesize elementID, delegate, elementName;
+@synthesize elementID, delegate, elementName, boardView;
+
 
 - (void)setDelegate:(id <ElementDelegate>)dlg {
 	delegate = dlg;
@@ -19,8 +19,19 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     //Send back a notification of a touch to the owner, including the photo ID and index
 	CGPoint pt = [[touches anyObject] locationInView:self];
-    NSLog(@"Element Touched!");
+    startPosition = pt;
+    NSLog(@"Element Touched! %f: %f", pt.x, pt.y);
+    [[self superview] bringSubviewToFront:self];
 	[delegate elementWasTouchedWithName:elementName andID:elementID];
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    CGPoint pt = [[touches anyObject] locationInView:self];
+    CGRect frame = [self frame];
+    frame.origin.x += pt.x - startPosition.x;
+    frame.origin.y += pt.y - startPosition.y;
+    NSLog(@"Element Moved! %f: %f", pt.x, pt.y);
+    self.frame = frame;
 }
 
 @end

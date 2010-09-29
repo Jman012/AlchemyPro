@@ -60,11 +60,12 @@
 
 - (void)boardAddElement:(NSString *)element {
     NSLog(@"Add: %@", element);
-    Element *elementLabel = [[UILabel alloc] initWithFrame:CGRectMake(32, 32, 56, 21)];
+    Element *elementLabel = [[Element alloc] initWithFrame:CGRectMake(32, 32, 56, 21)];
 //    [elementLabel setDelegate:self];
     elementLabel.text = element;
+    elementLabel.userInteractionEnabled = TRUE;
     elementLabel.textColor = [UIColor blueColor];
-    elementLabel.backgroundColor = [UIColor clearColor];
+    elementLabel.backgroundColor = [UIColor grayColor];
     [self.boardView addSubview:elementLabel];
 }
 
@@ -82,7 +83,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [[event allTouches] anyObject];
     if([touch view] == boardView){
-//        NSLog(@"Touched %@", [touch view]);
+        NSLog(@"Touched %@", [touch view]);
     }
 }
 

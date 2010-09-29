@@ -18,11 +18,14 @@
 	NSString	*elementName;
 	int			elementID;
 	id			<ElementDelegate> delegate;
+    IBOutlet UIView *boardView;
+    CGPoint         startPosition;
 }
 
 @property (nonatomic, retain) NSString	*elementName;
 @property (nonatomic) int		elementID;
 @property (nonatomic, retain) id <ElementDelegate> delegate;
+@property (nonatomic, retain) IBOutlet UIView *boardView;
 
 - (void)setDelegate:(id <ElementDelegate>)dlg;
 
