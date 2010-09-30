@@ -58,14 +58,14 @@
     return cell;
 }
 
-- (void)boardAddElement:(NSString *)element {
-    NSLog(@"Add: %@", element);
-    Element *elementLabel = [[Element alloc] init];
-    elementLabel.frame = CGRectMake(32, 32, 64, 64);
-//    [elementLabel setDelegate:self];
-//    elementLabel.text = element;
-
-    [self.boardView addSubview:elementLabel];
+- (void)boardAddElement:(NSString *)elementName {
+    NSLog(@"Add: %@", elementName);
+    Element *element = [[Element alloc] init];
+    element.frame = CGRectMake(32, 32, 64, 64);
+    element.elementName = elementName;
+    [element loadVisualViews];
+    [self.boardView addSubview:element];
+    [element release];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

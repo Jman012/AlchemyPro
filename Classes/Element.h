@@ -29,6 +29,6 @@
 @property (nonatomic, retain) IBOutlet UIView *boardView;
 
 - (void)setDelegate:(id <ElementDelegate>)dlg;
-
+- (void)loadVisualViews;
 
 @end
