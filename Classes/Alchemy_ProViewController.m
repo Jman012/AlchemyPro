@@ -61,9 +61,9 @@
 - (void)boardAddElement:(NSString *)element {
     NSLog(@"Add: %@", element);
     Element *elementLabel = [[Element alloc] init];
-    elementLabel.frame = CGRectMake(32, 32, 56, 21);
+    elementLabel.frame = CGRectMake(32, 32, 64, 64);
 //    [elementLabel setDelegate:self];
-    elementLabel.text = element;
+//    elementLabel.text = element;
 
     [self.boardView addSubview:elementLabel];
 }

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B93F98BC12541C860071D211 /* ElementBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B93F98BA12541C860071D211 /* ElementBackground.png */; };
+		B93F98BD12541C860071D211 /* SampleElementIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B93F98BB12541C860071D211 /* SampleElementIcon.png */; };
+		B93F98DB12542B940071D211 /* ElementBackground2.png in Resources */ = {isa = PBXBuildFile; fileRef = B93F98DA12542B940071D211 /* ElementBackground2.png */; };
 		B950AFAD124EF2C20056309D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B950AFAC124EF2C20056309D /* UIKit.framework */; };
 		B950AFAF124EF2C20056309D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B950AFAE124EF2C20056309D /* Foundation.framework */; };
 		B950AFB1124EF2C20056309D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B950AFB0124EF2C20056309D /* CoreGraphics.framework */; };
@@ -20,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B93F98BA12541C860071D211 /* ElementBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ElementBackground.png; path = Classes/ElementBackground.png; sourceTree = "<group>"; };
+		B93F98BB12541C860071D211 /* SampleElementIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SampleElementIcon.png; path = Classes/SampleElementIcon.png; sourceTree = "<group>"; };
+		B93F98DA12542B940071D211 /* ElementBackground2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ElementBackground2.png; sourceTree = "<group>"; };
 		B950AFA9124EF2C20056309D /* Alchemy Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Alchemy Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B950AFAC124EF2C20056309D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B950AFAE124EF2C20056309D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -88,6 +94,9 @@
 		B950AFA3124EF2C20056309D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B93F98DA12542B940071D211 /* ElementBackground2.png */,
+				B93F98BA12541C860071D211 /* ElementBackground.png */,
+				B93F98BB12541C860071D211 /* SampleElementIcon.png */,
 				B950AFB2124EF2C20056309D /* Alchemy_Pro-Info.plist */,
 				B950AFB4124EF2C20056309D /* InfoPlist.strings */,
 				B950AFBC124EF2C20056309D /* MainWindow.xib */,
@@ -167,6 +176,9 @@
 				B950AFB6124EF2C20056309D /* InfoPlist.strings in Resources */,
 				B950AFBE124EF2C20056309D /* MainWindow.xib in Resources */,
 				B950AFC4124EF2C20056309D /* Alchemy_ProViewController.xib in Resources */,
+				B93F98BC12541C860071D211 /* ElementBackground.png in Resources */,
+				B93F98BD12541C860071D211 /* SampleElementIcon.png in Resources */,
+				B93F98DB12542B940071D211 /* ElementBackground2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

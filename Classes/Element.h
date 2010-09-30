@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @class Element;
 
@@ -14,7 +15,7 @@
 - (void)elementWasTouchedWithName:(NSString *)name andID:(int)ID;
 @end
 
-@interface Element : UILabel {
+@interface Element : UIView {
 	NSString	*elementName;
 	int			elementID;
 	id			<ElementDelegate> delegate;

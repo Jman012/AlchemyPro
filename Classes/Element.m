@@ -19,8 +19,11 @@
 - (id)init {
     if((self = [super init])){
         self.userInteractionEnabled = TRUE;
-        self.textColor = [UIColor whiteColor];
-        self.backgroundColor = [UIColor grayColor];
+        [self setBackgroundColor:[UIColor lightGrayColor]];
+        UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:self.frame];
+        [backgroundImage setImage:[UIImage imageNamed:@"ElementBackground2"]];
+        [backgroundImage setOpaque:TRUE];
+        [self addSubview:backgroundImage];
     }
     return self;
 }
@@ -39,7 +42,7 @@
     CGRect frame = [self frame];
     frame.origin.x += pt.x - startPosition.x;
     frame.origin.y += pt.y - startPosition.y;
-    //Fix minor bugs, hard to explain, may need alteration to original code ^
+    //Fix minor bugs, Elements gettign stuck on sides, may need alteration to original code ^
     if(frame.origin.x >= 0 &&
        frame.origin.y >= 0 &&
        frame.origin.x <= 352 &&
