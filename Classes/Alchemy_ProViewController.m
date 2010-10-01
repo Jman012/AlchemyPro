@@ -10,6 +10,8 @@
 
 @implementation Alchemy_ProViewController
 @synthesize catList, boardView;
+@synthesize firstElementComboTaken, secondElementComboTaken, thirdElementComboTaken;
+
 
 
 /*
@@ -72,6 +74,7 @@
     if(indexPath.row < 4){
         [self boardAddElement:[catList objectAtIndex:indexPath.row]];
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
