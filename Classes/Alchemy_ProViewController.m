@@ -42,6 +42,7 @@
         catList = [[NSArray alloc] initWithObjects:@"Water", @"Fire", @"Air", @"Earth", @"Blank", nil]; 
     }
     [settings release];
+    firstElementComboTaken = NO;
     [super viewDidLoad];
 }
 
@@ -79,8 +80,9 @@
 
 
 - (void)elementWasTouchedWithName:(NSString *)name andID:(int)ID {
-    NSLog(@"Element: %@ %@", name, ID);
+    NSLog(@"Element Touched");
 }
+
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [[event allTouches] anyObject];

@@ -7,8 +7,10 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+//#import "Alchemy_ProViewController.h"
 
 @class Element;
+@class Alchemy_ProViewController;
 
 @protocol ElementDelegate <NSObject>
 @required
@@ -16,29 +18,22 @@
 @end
 
 @interface Element : UIView {
+    Alchemy_ProViewController *controller;
+    
 	NSString                *elementName;
 	int                     elementID;
 	id                      <ElementDelegate> delegate;
     CGPoint                 startPosition;
 
-    IBOutlet UIView         *boardView;
-    IBOutlet UIImageView    *firstElementCombo;
-    IBOutlet UIImageView    *secondElementCombo;
-    IBOutlet UIImageView    *thirdElementCombo;
-    IBOutlet UIButton       *elementComboButton;
+    
 }
 
+@property (nonatomic, retain) Alchemy_ProViewController *controller;
 @property (nonatomic, retain)   NSString            *elementName;
 @property (nonatomic)           int                 elementID;
 @property (nonatomic, retain)   id                  <ElementDelegate> delegate;
+@property (nonatomic) CGPoint startPosition;
 
-
-@property (nonatomic, retain) IBOutlet UIView       *boardView;
-@property (nonatomic, retain) IBOutlet UIImageView  *firstElementCombo;
-@property (nonatomic, retain) IBOutlet UIImageView  *secondElementCombo;
-@property (nonatomic, retain) IBOutlet UIImageView  *thirdElementCombo;
-@property (nonatomic, retain) IBOutlet UIButton     *elementComboButton;
-@property (nonatomic, retain) IBOutlet UIView       *comboBarView;
 
 
 - (void)setDelegate:(id <ElementDelegate>)dlg;

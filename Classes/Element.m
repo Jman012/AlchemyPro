@@ -1,18 +1,12 @@
-//
-//  Element.m
-//
-//  Created by Alexander Nabavi-Noori on 9/27/10.
-//  Copyright 2010 Alexander Nabavi-Noori. All rights reserved.
-//
-
+// Element.m
 #import "Element.h"
+#import "Alchemy_ProViewController.h"
 
 @implementation Element
 
-@synthesize elementID, delegate, elementName, boardView;
-@synthesize firstElementCombo, secondElementCombo, thirdElementCombo, elementComboButton;
-@synthesize comboBarView;
 
+@synthesize controller, elementName, elementID, delegate;
+@synthesize startPosition;
 
 - (void)setDelegate:(id <ElementDelegate>)dlg {
 	delegate = dlg;
@@ -48,15 +42,16 @@
     [mainImage setOpaque:TRUE];
     [self addSubview:mainImage];
     [mainImage release];
+    
+    NSLog(@"%@", controller.firstElementComboTaken);
 }
 
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    //Send back a notification of a touch to the owner, including the photo ID and index
 	CGPoint pt = [[touches anyObject] locationInView:self];
     startPosition = pt;
-    NSLog(@"Element Touched! %f: %f", pt.x, pt.y);
     [[self superview] bringSubviewToFront:self];
-//	[delegate elementWasTouchedWithName:elementName andID:elementID];
+	[delegate elementWasTouchedWithName:elementName andID:elementID];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -64,15 +59,11 @@
     CGRect frame = [self frame];
     frame.origin.x += pt.x - startPosition.x;
     frame.origin.y += pt.y - startPosition.y;
-    //Fix minor bugs, Elements gettign stuck on sides, may need alteration to original code ^
     if(frame.origin.x >= 0 &&
        frame.origin.y >= 0 &&
        frame.origin.x <= 352 &&
        frame.origin.y <= 252){
         self.frame = frame;
-    }
-    if(CGRectContainsPoint(CGRectMake(272, 0, 80, 252), CGPointMake(self.frame.origin.x +   16, self.frame.origin.y))){
-        self.frame = CGRectMake(280, 8, self.frame.size.width, self.frame.size.height);
     }
     
 //    NSLog(@"%i, %i", (int)self.frame.origin.x, (int)self.frame.origin.y);
