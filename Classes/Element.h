@@ -18,21 +18,21 @@
 @end
 
 @interface Element : UIView {
-    Alchemy_ProViewController *controller;
+    Alchemy_ProViewController   *controller;
     
-	NSString                *elementName;
-	int                     elementID;
-	id                      <ElementDelegate> delegate;
-    CGPoint                 startPosition;
+	NSString                    *elementName;
+	int                         elementID;
+	id                          <ElementDelegate> delegate;
+    CGPoint                     startPosition;
 
     
 }
 
-@property (nonatomic, retain) Alchemy_ProViewController *controller;
-@property (nonatomic, retain)   NSString            *elementName;
-@property (nonatomic)           int                 elementID;
-@property (nonatomic, retain)   id                  <ElementDelegate> delegate;
-@property (nonatomic) CGPoint startPosition;
+@property (nonatomic, retain) Alchemy_ProViewController     *controller;
+@property (nonatomic, retain) NSString                      *elementName;
+@property (nonatomic)         int                           elementID;
+@property (nonatomic, retain) id                            <ElementDelegate> delegate;
+@property (nonatomic)         CGPoint                       startPosition;
 
 
 
