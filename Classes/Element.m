@@ -6,7 +6,7 @@
 
 
 @synthesize controller, elementName, elementID, delegate;
-@synthesize startPosition;
+@synthesize startPosition, sitting, inSideBar, currentPlacement;
 
 - (void)setDelegate:(id <ElementDelegate>)dlg {
 	delegate = dlg;
@@ -16,12 +16,19 @@
     if((self = [super init])){
         self.userInteractionEnabled = TRUE;
         [self setBackgroundColor:[UIColor clearColor]];
-        
+        sitting = FALSE;
+        inSidebar = FALSE;
+        currentPlacement = 0;
+        elementName = @"Blah";
+        elementID = 1;
     }
     return self;
 }
 
 - (void)loadVisualViews {
+    controller = [[Alchemy_ProViewController alloc] init];
+
+    
     UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 64, 64)];
     [backgroundImage setImage:[UIImage imageNamed:@"ElementBackground2.png"]];
     [backgroundImage setOpaque:TRUE];
@@ -43,7 +50,6 @@
     [self addSubview:mainImage];
     [mainImage release];
     
-    NSLog(@"%@", controller.firstElementComboTaken);
 }
 
 
@@ -51,6 +57,10 @@
 	CGPoint pt = [[touches anyObject] locationInView:self];
     startPosition = pt;
     [[self superview] bringSubviewToFront:self];
+//    NSLog(@"Cont: %@", [controller firstElementComboTaken]);
+    if(![controller firstElementComboTaken]){
+        NSLog(@"Controller link working");
+    }
 	[delegate elementWasTouchedWithName:elementName andID:elementID];
 }
 
@@ -59,13 +69,62 @@
     CGRect frame = [self frame];
     frame.origin.x += pt.x - startPosition.x;
     frame.origin.y += pt.y - startPosition.y;
-    if(frame.origin.x >= 0 &&
-       frame.origin.y >= 0 &&
-       frame.origin.x <= 352 &&
-       frame.origin.y <= 252){
+    if(frame.origin.x >= 0 && frame.origin.y >= 0 && frame.origin.x <= 272 && frame.origin.y <= 252){
+        inSidebar = FALSE;
+        sitting = FALSE;
+        if(currentPlacement != 0){
+            if(currentPlacement == 1)
+                [controller setFirstElementComboTaken:NO];
+            if(currentPlacement == 2)
+                [controller setSecondElementComboTaken:NO];
+            if(currentPlacement == 3)
+                [controller setThirdElementComboTaken:NO];
+            currentPlacement = 0;
+        }
         self.frame = frame;
     }
+    else
+        inSidebar = TRUE;
     
+    if(inSidebar == TRUE){
+//        if(CGRectContainsPoint(CGRectMake(272, 0, 80, 252), CGPointMake(self.frame.origin.x +   16, self.frame.origin.y))){
+        if(sitting == FALSE){
+            if([controller firstElementComboTaken] == NO){
+                NSLog(@"First");
+              [UIView beginAnimations:nil context:NULL];
+                sitting = TRUE;
+                currentPlacement = 1;
+            [UIView setAnimationDuration:0.2];
+                [self setFrame:CGRectMake(280, 8, 64, 64)];
+            [UIView commitAnimations];
+                [controller setFirstElementComboTaken:YES];
+            }
+            else{
+                if([controller secondElementComboTaken] == NO){
+                    NSLog(@"Second");
+                    [UIView beginAnimations:nil context:NULL];
+                    sitting = TRUE;
+                    currentPlacement = 2;
+                    [UIView setAnimationDuration:0.2];
+                    [self setFrame:CGRectMake(280, 80, 64, 64)];
+                    [UIView commitAnimations];
+                    [controller setSecondElementComboTaken:YES];
+                }
+                else {
+                    if([controller thirdElementComboTaken] == NO){
+                        NSLog(@"Third");
+                        [UIView beginAnimations:nil context:NULL];
+                        sitting = TRUE;
+                        currentPlacement = 3;
+                        [UIView setAnimationDuration:0.2];
+                        [self setFrame:CGRectMake(280, 152, 64, 64)];
+                        [UIView commitAnimations];
+                        [controller setThirdElementComboTaken:YES];
+                    }
+                }
+            }
+        }
+    }
 //    NSLog(@"%i, %i", (int)self.frame.origin.x, (int)self.frame.origin.y);
 }
 
@@ -75,6 +134,7 @@
 }
 
 - (void)dealloc {
+    [controller release];
     [super dealloc];
 }
 

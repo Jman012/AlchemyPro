@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Element.h"
 
-@class Element;
+//@class Element;
 
 @interface Alchemy_ProViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, ElementDelegate>{
     NSArray                 *catList;

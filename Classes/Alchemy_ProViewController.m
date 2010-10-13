@@ -81,6 +81,7 @@
 
 - (void)elementWasTouchedWithName:(NSString *)name andID:(int)ID {
     NSLog(@"Element Touched");
+    NSLog(@"%@, %i", name, ID);
 }
 
 

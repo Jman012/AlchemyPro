@@ -20,6 +20,9 @@
 @interface Element : UIView {
     Alchemy_ProViewController   *controller;
     
+    BOOL                        sitting;
+    BOOL                        inSidebar;
+    int                         currentPlacement;
 	NSString                    *elementName;
 	int                         elementID;
 	id                          <ElementDelegate> delegate;
@@ -33,6 +36,9 @@
 @property (nonatomic)         int                           elementID;
 @property (nonatomic, retain) id                            <ElementDelegate> delegate;
 @property (nonatomic)         CGPoint                       startPosition;
+@property (nonatomic)         BOOL                          sitting;
+@property (nonatomic)         BOOL                          inSideBar;
+@property (nonatomic)         int                           currentPlacement;
 
 
 
