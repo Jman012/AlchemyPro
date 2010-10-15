@@ -14,26 +14,26 @@
 
 @protocol ElementDelegate <NSObject>
 @required
-- (void)elementWasTouchedWithName:(NSString *)name andID:(int)ID;
+- (void)elementWasTouchedWithName:(NSString *)name andID:(NSString *)ID touch:(NSSet *)touches andEvent:(UIEvent *)event;
+- (void)elementWasMovedWithName:(NSString *)name andID:(NSString *)ID touch:(NSSet *)touches andEvent:(UIEvent *)event;
 @end
 
 @interface Element : UIView {
-    Alchemy_ProViewController   *controller;
-    
     BOOL                        sitting;
     BOOL                        inSidebar;
+    
     int                         currentPlacement;
+    
 	NSString                    *elementName;
-	int                         elementID;
+	NSString                    *elementID;
 	id                          <ElementDelegate> delegate;
     CGPoint                     startPosition;
 
     
 }
 
-@property (nonatomic, retain) Alchemy_ProViewController     *controller;
 @property (nonatomic, retain) NSString                      *elementName;
-@property (nonatomic)         int                           elementID;
+@property (nonatomic, retain) NSString                      *elementID;
 @property (nonatomic, retain) id                            <ElementDelegate> delegate;
 @property (nonatomic)         CGPoint                       startPosition;
 @property (nonatomic)         BOOL                          sitting;

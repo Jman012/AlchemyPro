@@ -13,19 +13,25 @@
 
 @interface Alchemy_ProViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, ElementDelegate>{
     NSArray                 *catList;
-    IBOutlet                UIView *boardView;
+    IBOutlet UIView         *boardView;
+    IBOutlet UIButton       *comboButton;
     
     BOOL                    firstElementComboTaken;
     BOOL                    secondElementComboTaken;
     BOOL                    thirdElementComboTaken;
+    
+    NSMutableDictionary     *initiatedElements;
 }
 
-@property(nonatomic, retain) NSArray                *catList;
-@property(nonatomic, retain) IBOutlet UIView        *boardView;
+@property (nonatomic, retain) NSArray               *catList;
+@property (nonatomic, retain) IBOutlet UIView       *boardView;
+@property (nonatomic, retain) IBOutlet UIButton     *comboButton;
 
-@property (nonatomic)   BOOL                firstElementComboTaken;
-@property (nonatomic)   BOOL                secondElementComboTaken;
-@property (nonatomic)   BOOL                thirdElementComboTaken;
+@property (nonatomic)   BOOL                        firstElementComboTaken;
+@property (nonatomic)   BOOL                        secondElementComboTaken;
+@property (nonatomic)   BOOL                        thirdElementComboTaken;
+
+@property (nonatomic, retain) NSMutableDictionary   *initiatedElements;
 
 - (void)boardAddElement:(NSString *)element;
 
