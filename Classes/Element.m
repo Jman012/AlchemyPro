@@ -67,6 +67,10 @@
     pt = pt; // Only for not getting a warning
 }
 
+- (BOOL)isValid {
+    return TRUE;
+}
+
 - (void)dealloc {
     [super dealloc];
 }

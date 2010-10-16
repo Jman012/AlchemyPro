@@ -44,5 +44,6 @@
 
 - (void)setDelegate:(id <ElementDelegate>)dlg;
 - (void)loadVisualViews;
+- (BOOL)isValid;
 
 @end

@@ -13,7 +13,8 @@
 
 @synthesize catList, boardView, comboButton;
 @synthesize firstElementComboTaken, secondElementComboTaken, thirdElementComboTaken;
-@synthesize initiatedElements;
+@synthesize initiatedElements, sideBarElements;
+@synthesize doubleElementCombos, tripleElementCombos;
 
 
 /*
@@ -37,6 +38,9 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     initiatedElements = [[NSMutableDictionary alloc] init];
+    sideBarElements = [[NSMutableDictionary alloc] init];
+    doubleElementCombos = [[NSDictionary alloc] initWithObjects:[NSArray arrayWithObjects:@"Marsh", @"Lava", @"Energy", @"Steam", @"Dust", nil]
+                                                        forKeys:[NSArray arrayWithObjects:@"Water+Earth", @"Earth+Fire", @"Fire+Air", @"Water+Fire", @"Air+Earth", nil]];
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
     catList = [settings objectForKey:@"AlchemyCategoryList"];
     if(catList == nil){
@@ -45,6 +49,7 @@
     }
     [settings release];
     firstElementComboTaken = NO;
+    [comboButton addTarget:self action:@selector(comboButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [super viewDidLoad];
 }
 
@@ -64,10 +69,11 @@
 }
 
 - (void)boardAddElement:(NSString *)elementName {
-    NSLog(@"Add: %@", elementName);
     
     NSTimeInterval epochTime = [[NSDate date] timeIntervalSince1970];
     NSString *ID = [[NSString alloc] initWithFormat:@"%u", epochTime];
+    
+    NSLog(@"Add: %@, %@", elementName, ID);
     
     Element *element = [[Element alloc] init];
     element.frame = CGRectMake(32, 32, 64, 64);
@@ -89,8 +95,8 @@
 
 
 - (void)elementWasTouchedWithName:(NSString *)name andID:(NSString *)ID touch:(NSSet *)touches andEvent:(UIEvent *)event {
-    NSLog(@"Element Touched");
-    NSLog(@"%@, %u", name, ID);
+    NSLog(@"%@ Touched", name);
+//    NSLog(@"%@, %@", name, ID);
     Element *tempElement = [initiatedElements objectForKey:ID];
     CGPoint pt = [[touches anyObject] locationInView:tempElement];
     tempElement.startPosition = pt;
@@ -116,6 +122,10 @@
             if(tempElement.currentPlacement == 3)
                 thirdElementComboTaken = NO;
             tempElement.currentPlacement = 0;
+            if([sideBarElements objectForKey:ID] != nil){
+                NSLog(@"Deleting %@", ID);
+                [sideBarElements removeObjectForKey:ID];
+            }
         }
         tempElement.frame = frame;
     }
@@ -130,6 +140,7 @@
                 [UIView beginAnimations:nil context:NULL];
                 tempElement.sitting = TRUE;
                 tempElement.currentPlacement = 1;
+                [sideBarElements setObject:tempElement forKey:ID];
                 [UIView setAnimationDuration:0.2];
                 [tempElement setFrame:CGRectMake(280, 8, 64, 64)];
                 [UIView commitAnimations];
@@ -141,6 +152,7 @@
                     [UIView beginAnimations:nil context:NULL];
                     tempElement.sitting = TRUE;
                     tempElement.currentPlacement = 2;
+                    [sideBarElements setObject:tempElement forKey:ID];
                     [UIView setAnimationDuration:0.2];
                     [tempElement setFrame:CGRectMake(280, 80, 64, 64)];
                     [UIView commitAnimations];
@@ -152,6 +164,7 @@
                         [UIView beginAnimations:nil context:NULL];
                         tempElement.sitting = TRUE;
                         tempElement.currentPlacement = 3;
+                        [sideBarElements setObject:tempElement forKey:ID];
                         [UIView setAnimationDuration:0.2];
                         [tempElement setFrame:CGRectMake(280, 152, 64, 64)];
                         [UIView commitAnimations];
@@ -164,6 +177,88 @@
 }
 
 
+- (void)comboButtonPressed:(id)sender {
+    NSLog(@"Button touched");
+    Element *markerElement = [[Element alloc] init];
+    NSArray *comboElements = [[NSArray alloc] initWithArray:[sideBarElements objectsForKeys:[sideBarElements allKeys] notFoundMarker:markerElement]];
+    
+    [markerElement release];
+    if([comboElements count] == 0){
+        NSLog(@"No Elements in SideBar");
+        UIAlertView *noElementAlert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You have no Elements to combine!"
+                                                                delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [noElementAlert show];
+        [noElementAlert release];
+    }
+    else if([comboElements count] == 1){
+        NSLog(@"Only a single Element!");
+        UIAlertView *oneElementAlert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You have only one Element to combine!"
+                                                                 delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [oneElementAlert show];
+        [oneElementAlert release];
+    }
+    else if([comboElements count] == 2){
+        NSLog(@"Two Elements, Searching for Possible Matches");
+        Element *firstElement = [comboElements objectAtIndex:0];
+        Element *secondElement = [comboElements objectAtIndex:1];
+        NSLog(@"Elements: %@ and %@", firstElement.elementName, secondElement.elementName);
+        
+        //Complex as hell algorithm using large lists of elements and combos :P
+        NSString *compareFirst = [[NSString alloc] initWithFormat:@"%@+%@", firstElement.elementName, secondElement.elementName];
+        NSString *compareSecond = [[NSString alloc] initWithFormat:@"%@+%@", secondElement.elementName, firstElement.elementName];
+        NSString *tempElement = [doubleElementCombos objectForKey:compareFirst];
+        NSString *tempElement2 = [doubleElementCombos objectForKey:compareSecond];
+        
+        
+        if(tempElement != nil || tempElement2 != nil){
+            
+            //Used to simplify and combine orignial if and else, easier to edit
+            if(tempElement != nil && tempElement2 == nil){
+                
+            }
+            else if(tempElement == nil && tempElement2 != nil){
+                tempElement = tempElement2;
+            }
+            
+            NSTimeInterval epochTime = [[NSDate date] timeIntervalSince1970];
+            NSString *ID = [[NSString alloc] initWithFormat:@"%u", epochTime];
+            
+            NSLog(@"Add: %@, %@", tempElement, ID);
+            
+            Element *element = [[Element alloc] init];
+            element.frame = CGRectMake(32, 32, 64, 64);
+            element.elementName = tempElement;
+            element.elementID = ID;
+            [element loadVisualViews];
+            [element setDelegate:self];
+            [self.boardView addSubview:element];
+            [initiatedElements setObject:element forKey:ID];
+            [element release];
+            
+            [sideBarElements removeObjectForKey:firstElement.elementID];
+            [initiatedElements removeObjectForKey:firstElement.elementID];
+            [firstElement removeFromSuperview];
+            [firstElement release];
+            
+            [sideBarElements removeObjectForKey:secondElement.elementID];
+            [initiatedElements removeObjectForKey:secondElement.elementID];
+            [secondElement removeFromSuperview];
+            [secondElement release];
+            
+            firstElementComboTaken = NO;
+            secondElementComboTaken = NO;
+        }
+        
+//        [firstElement release];
+//        [secondElement release];
+    }
+    else if([comboElements count] == 3){
+        NSLog(@"Three Elements, Searching for Possible Matches");
+    }
+    else if([comboElements count] > 3){
+        NSLog(@"More than 3 elements? Problem!");
+    }
+}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 //    UITouch *touch = [[event allTouches] anyObject];
@@ -195,6 +290,9 @@
 
 - (void)dealloc {
     [initiatedElements release];
+    [sideBarElements release];
+    [boardView release];
+    [comboButton release];
     [catList release];
     [super dealloc];
 }

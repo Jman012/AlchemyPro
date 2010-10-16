@@ -21,6 +21,10 @@
     BOOL                    thirdElementComboTaken;
     
     NSMutableDictionary     *initiatedElements;
+    NSMutableDictionary     *sideBarElements;
+    
+    NSDictionary            *doubleElementCombos;
+    NSDictionary            *tripleElementCombos;
 }
 
 @property (nonatomic, retain) NSArray               *catList;
@@ -32,7 +36,12 @@
 @property (nonatomic)   BOOL                        thirdElementComboTaken;
 
 @property (nonatomic, retain) NSMutableDictionary   *initiatedElements;
+@property (nonatomic, retain) NSMutableDictionary   *sideBarElements;
+
+@property (nonatomic, retain) NSDictionary          *doubleElementCombos;
+@property (nonatomic, retain) NSDictionary          *tripleElementCombos;
 
 - (void)boardAddElement:(NSString *)element;
+- (void)comboButtonPressed:(id)sender;
 
 @end
