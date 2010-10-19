@@ -39,8 +39,18 @@
 - (void)viewDidLoad {
     initiatedElements = [[NSMutableDictionary alloc] init];
     sideBarElements = [[NSMutableDictionary alloc] init];
-    doubleElementCombos = [[NSDictionary alloc] initWithObjects:[NSArray arrayWithObjects:@"Marsh", @"Lava", @"Energy", @"Steam", @"Dust", nil]
-                                                        forKeys:[NSArray arrayWithObjects:@"Water+Earth", @"Earth+Fire", @"Fire+Air", @"Water+Fire", @"Air+Earth", nil]];
+    
+    //The setup for the double combinations
+    NSArray *doubleElementNames = [[NSArray alloc] initWithObjects:     @"Marsh",       @"Lava",        @"Energy",      @"Steam",       @"Dust",        @"Lake", nil];
+    NSArray *doubleElementDefines = [[NSArray alloc] initWithObjects:   @"Earth+Water", @"Earth+Fire",  @"Air+Fire",    @"Fire+Water",  @"Air+Earth",   @"Water+Water", nil];
+    doubleElementCombos = [[NSDictionary alloc] initWithObjects:doubleElementNames forKeys:doubleElementDefines];
+    
+    //The setup for the triple combinations
+    NSArray *tripleElementNames = [[NSArray alloc] initWithObjects:     @"Sea",                 @"Tornado", nil];
+    NSArray *tripleElementDefines = [[NSArray alloc] initWithObjects:   @"Water+Water+Water",   @"Air+Dust+Energy", nil];
+    tripleElementCombos = [[NSDictionary alloc] initWithObjects:tripleElementNames forKeys:tripleElementDefines];
+    
+    //Get a list of already unlocked Elements, not fully implemented yet
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
     catList = [settings objectForKey:@"AlchemyCategoryList"];
     if(catList == nil){
@@ -49,6 +59,8 @@
     }
     [settings release];
     firstElementComboTaken = NO;
+    secondElementComboTaken = NO;
+    thirdElementComboTaken = NO;
     [comboButton addTarget:self action:@selector(comboButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [super viewDidLoad];
 }
@@ -69,19 +81,16 @@
 }
 
 - (void)boardAddElement:(NSString *)elementName {
-    
     NSTimeInterval epochTime = [[NSDate date] timeIntervalSince1970];
     NSString *ID = [[NSString alloc] initWithFormat:@"%u", epochTime];
     
     NSLog(@"Add: %@, %@", elementName, ID);
     
-    Element *element = [[Element alloc] init];
+    Element *element = [[Element alloc] initWithName:elementName andID:ID];
     element.frame = CGRectMake(32, 32, 64, 64);
-    element.elementName = elementName;
-    element.elementID = ID;
-    [element loadVisualViews];
     [element setDelegate:self];
-    [self.boardView addSubview:element];
+    if([element isValid])
+        [self.boardView addSubview:element];
     [initiatedElements setObject:element forKey:ID];
     [element release];
 }
@@ -95,8 +104,6 @@
 
 
 - (void)elementWasTouchedWithName:(NSString *)name andID:(NSString *)ID touch:(NSSet *)touches andEvent:(UIEvent *)event {
-    NSLog(@"%@ Touched", name);
-//    NSLog(@"%@, %@", name, ID);
     Element *tempElement = [initiatedElements objectForKey:ID];
     CGPoint pt = [[touches anyObject] locationInView:tempElement];
     tempElement.startPosition = pt;
@@ -123,7 +130,7 @@
                 thirdElementComboTaken = NO;
             tempElement.currentPlacement = 0;
             if([sideBarElements objectForKey:ID] != nil){
-                NSLog(@"Deleting %@", ID);
+                NSLog(@"Deleting %@", name);
                 [sideBarElements removeObjectForKey:ID];
             }
         }
@@ -136,7 +143,6 @@
         //        if(CGRectContainsPoint(CGRectMake(272, 0, 80, 252), CGPointMake(self.frame.origin.x +   16, self.frame.origin.y))){
         if(tempElement.sitting == FALSE){
             if(firstElementComboTaken == NO){
-                NSLog(@"First");
                 [UIView beginAnimations:nil context:NULL];
                 tempElement.sitting = TRUE;
                 tempElement.currentPlacement = 1;
@@ -148,7 +154,6 @@
             }
             else{
                 if(secondElementComboTaken == NO){
-                    NSLog(@"Second");
                     [UIView beginAnimations:nil context:NULL];
                     tempElement.sitting = TRUE;
                     tempElement.currentPlacement = 2;
@@ -160,7 +165,6 @@
                 }
                 else {
                     if(thirdElementComboTaken == NO){
-                        NSLog(@"Third");
                         [UIView beginAnimations:nil context:NULL];
                         tempElement.sitting = TRUE;
                         tempElement.currentPlacement = 3;
@@ -198,74 +202,114 @@
         [oneElementAlert release];
     }
     else if([comboElements count] == 2){
+        
         NSLog(@"Two Elements, Searching for Possible Matches");
+        
         Element *firstElement = [comboElements objectAtIndex:0];
         Element *secondElement = [comboElements objectAtIndex:1];
         NSLog(@"Elements: %@ and %@", firstElement.elementName, secondElement.elementName);
         
-        //Complex as hell algorithm using large lists of elements and combos :P
-        NSString *compareFirst = [[NSString alloc] initWithFormat:@"%@+%@", firstElement.elementName, secondElement.elementName];
-        NSString *compareSecond = [[NSString alloc] initWithFormat:@"%@+%@", secondElement.elementName, firstElement.elementName];
-        NSString *tempElement = [doubleElementCombos objectForKey:compareFirst];
-        NSString *tempElement2 = [doubleElementCombos objectForKey:compareSecond];
+        NSString *doubleCombined;
+        NSString *doubleFromDict;
+        if([[firstElement elementName] compare:[secondElement elementName]] == -1){
+            //If they are already in alphebetical order
+            doubleCombined = [[NSString alloc] initWithFormat:@"%@+%@", [firstElement elementName], [secondElement elementName]];
+        }
+        else if([[firstElement elementName] compare:[secondElement elementName]] == 1){
+            //If they are not in alphebetical order
+            doubleCombined = [[NSString alloc] initWithFormat:@"%@+%@", [secondElement elementName], [firstElement elementName]];
+        }
+        else if([[firstElement elementName] compare:[secondElement elementName]] == 0){
+            //Both are equal
+            doubleCombined = [[NSString alloc] initWithFormat:@"%@+%@", [firstElement elementName], [secondElement elementName]];
+        }
+        doubleFromDict = [doubleElementCombos objectForKey:doubleCombined];
         
+        if(doubleFromDict == nil){
+            //If it's not found :P
+            //Note: Add sound later
+            NSLog(@"Wanted Combination not found");
+        }
         
-        if(tempElement != nil || tempElement2 != nil){
+        else {
             
-            //Used to simplify and combine orignial if and else, easier to edit
-            if(tempElement != nil && tempElement2 == nil){
-                
-            }
-            else if(tempElement == nil && tempElement2 != nil){
-                tempElement = tempElement2;
-            }
-            
+            //Make the desired Element
             NSTimeInterval epochTime = [[NSDate date] timeIntervalSince1970];
             NSString *ID = [[NSString alloc] initWithFormat:@"%u", epochTime];
-            
-            NSLog(@"Add: %@, %@", tempElement, ID);
-            
-            Element *element = [[Element alloc] init];
+            NSLog(@"Add: %@, %@", doubleFromDict, ID);
+        
+            Element *element = [[Element alloc] initWithName:doubleFromDict andID:ID];
             element.frame = CGRectMake(32, 32, 64, 64);
-            element.elementName = tempElement;
-            element.elementID = ID;
-            [element loadVisualViews];
             [element setDelegate:self];
-            [self.boardView addSubview:element];
+            [element setElementID:ID];
+            if([element isValid])
+                [self.boardView addSubview:element];
             [initiatedElements setObject:element forKey:ID];
             [element release];
-            
+    
             [sideBarElements removeObjectForKey:firstElement.elementID];
             [initiatedElements removeObjectForKey:firstElement.elementID];
             [firstElement removeFromSuperview];
             [firstElement release];
-            
+        
             [sideBarElements removeObjectForKey:secondElement.elementID];
             [initiatedElements removeObjectForKey:secondElement.elementID];
             [secondElement removeFromSuperview];
             [secondElement release];
-            
+        
             firstElementComboTaken = NO;
             secondElementComboTaken = NO;
         }
-        
-//        [firstElement release];
-//        [secondElement release];
     }
     else if([comboElements count] == 3){
         NSLog(@"Three Elements, Searching for Possible Matches");
+        Element *firstTripleElement = [comboElements objectAtIndex:0];
+        Element *secondTripleElement = [comboElements objectAtIndex:1];
+        Element *thirdTripleElement = [comboElements objectAtIndex:2];
+        
+        NSLog(@"Elements: %@+%@+%@", firstTripleElement.elementName, secondTripleElement.elementName, thirdTripleElement.elementName);
+        
+        NSString *tripleCombined;
+        NSString *tripleFromDict;
+        if([[firstTripleElement elementName] compare:[secondTripleElement elementName]] == -1 && [[secondTripleElement elementName] compare:[thirdTripleElement elementName]] == -1){
+            //All three are in alphebetical order
+            NSLog(@"Already in alphebatical order");
+            tripleCombined = [[NSString alloc] initWithFormat:@"%@+%@+%@", [firstTripleElement elementName], [secondTripleElement elementName], [thirdTripleElement elementName]];
+        }
+        else if([[firstTripleElement elementName] compare:[secondTripleElement elementName]] == -1 && [[thirdTripleElement elementName] compare:[secondTripleElement elementName]] == -1){
+            // ACB config
+            tripleCombined = [[NSString alloc] initWithFormat:@"%@+%@+%@", [firstTripleElement elementName], [thirdTripleElement elementName], [secondTripleElement elementName]];
+            NSLog(@"ACB Config, is now: %@", tripleCombined);
+        }
+        else if([[secondTripleElement elementName] compare:[firstTripleElement elementName]] == -1 && [[secondTripleElement elementName] compare:[thirdTripleElement elementName]] == -1){
+            //BAC config
+            tripleCombined = [[NSString alloc] initWithFormat:@"%@+%@+%@", [secondTripleElement elementName], [firstTripleElement elementName], [thirdTripleElement elementName]];
+            NSLog(@"BAC Config, is now: %@", tripleCombined);
+        }
+        else if([[secondTripleElement elementName] compare:[firstTripleElement elementName]] == -1 && [[thirdTripleElement elementName] compare:[secondTripleElement elementName]] == -1){
+            //CBA config
+            tripleCombined = [[NSString alloc] initWithFormat:@"%@+%@+%@", [thirdTripleElement elementName], [secondTripleElement elementName], [firstTripleElement elementName]];
+            NSLog(@"CBA Config, is now: %@", tripleCombined);
+        }
+        else if([[firstTripleElement elementName] isEqualToString:[secondTripleElement elementName]] && [[secondTripleElement elementName] isEqualToString:[thirdTripleElement elementName]]){
+            //All three are identical
+            NSLog(@"All Identical");
+            tripleCombined = [[NSString alloc] initWithFormat:@"%@+%@+%@", [firstTripleElement elementName], [secondTripleElement elementName], [thirdTripleElement elementName]];
+        }
+        tripleFromDict = [tripleElementCombos objectForKey:tripleCombined];
+        
     }
     else if([comboElements count] > 3){
         NSLog(@"More than 3 elements? Problem!");
     }
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+/*- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 //    UITouch *touch = [[event allTouches] anyObject];
 //    if([touch view] == boardView){
 //        NSLog(@"Touched %@", [touch view]);
 //    }
-}
+}*/
 
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -289,6 +333,8 @@
 
 
 - (void)dealloc {
+    [doubleElementCombos release];
+    [tripleElementCombos release];
     [initiatedElements release];
     [sideBarElements release];
     [boardView release];

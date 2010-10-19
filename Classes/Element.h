@@ -45,5 +45,6 @@
 - (void)setDelegate:(id <ElementDelegate>)dlg;
 - (void)loadVisualViews;
 - (BOOL)isValid;
+- (id)initWithName:(NSString *)name andID:(NSString *)ID;
 
 @end

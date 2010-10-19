@@ -12,6 +12,13 @@
 	delegate = dlg;
 }
 
+- (id)initWithName:(NSString *)name andID:(NSString *)ID{
+    elementName = name;
+    elementID = ID;
+    [self init];
+    return self;
+}
+
 - (id)init {
     if((self = [super init])){
         self.userInteractionEnabled = TRUE;
@@ -19,12 +26,12 @@
         sitting = FALSE;
         inSidebar = FALSE;
         currentPlacement = 0;
+        [self loadVisualViews];
     }
     return self;
 }
 
-- (void)loadVisualViews {
-    
+- (void)loadVisualViews {    
     UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 64, 64)];
     [backgroundImage setImage:[UIImage imageNamed:@"ElementBackground2.png"]];
     [backgroundImage setOpaque:TRUE];
@@ -46,6 +53,7 @@
     [self addSubview:mainImage];
     [mainImage release];
     
+    [[self superview] bringSubviewToFront:self];
 }
 
 
