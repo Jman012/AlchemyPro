@@ -12,9 +12,11 @@
 
 
 @synthesize catList, boardView, comboButton;
-@synthesize firstElementComboTaken, secondElementComboTaken, thirdElementComboTaken;
+@synthesize sideBarView, firstComboImageView, secondComboImageView;
+@synthesize firstElement, secondElement, tempComboElement;
+@synthesize firstElementComboTaken, secondElementComboTaken;
 @synthesize initiatedElements, sideBarElements;
-@synthesize doubleElementCombos, tripleElementCombos;
+@synthesize doubleElementCombos;
 
 
 /*
@@ -41,14 +43,11 @@
     sideBarElements = [[NSMutableDictionary alloc] init];
     
     //The setup for the double combinations
-    NSArray *doubleElementNames = [[NSArray alloc] initWithObjects:     @"Marsh",       @"Lava",        @"Energy",      @"Steam",       @"Dust",        @"Lake", nil];
-    NSArray *doubleElementDefines = [[NSArray alloc] initWithObjects:   @"Earth+Water", @"Earth+Fire",  @"Air+Fire",    @"Fire+Water",  @"Air+Earth",   @"Water+Water", nil];
+    NSArray *doubleElementNames = [[NSArray alloc] initWithObjects:     @"Marsh",       @"Lava",        @"Energy",      @"Steam",       @"Dust",        @"Lake",        @"Vapor", nil];
+    NSArray *doubleElementDefines = [[NSArray alloc] initWithObjects:   @"Earth+Water", @"Earth+Fire",  @"Air+Fire",    @"Fire+Water",  @"Air+Earth",   @"Water+Water", @"Air+Water", nil];
     doubleElementCombos = [[NSDictionary alloc] initWithObjects:doubleElementNames forKeys:doubleElementDefines];
-    
-    //The setup for the triple combinations
-    NSArray *tripleElementNames = [[NSArray alloc] initWithObjects:     @"Sea",                 @"Tornado", nil];
-    NSArray *tripleElementDefines = [[NSArray alloc] initWithObjects:   @"Water+Water+Water",   @"Air+Dust+Energy", nil];
-    tripleElementCombos = [[NSDictionary alloc] initWithObjects:tripleElementNames forKeys:tripleElementDefines];
+    [doubleElementNames release];
+    [doubleElementDefines release];
     
     //Get a list of already unlocked Elements, not fully implemented yet
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
@@ -60,7 +59,6 @@
     [settings release];
     firstElementComboTaken = NO;
     secondElementComboTaken = NO;
-    thirdElementComboTaken = NO;
     [comboButton addTarget:self action:@selector(comboButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [super viewDidLoad];
 }
@@ -126,8 +124,6 @@
                 firstElementComboTaken = NO;
             if(tempElement.currentPlacement == 2)
                 secondElementComboTaken = NO;
-            if(tempElement.currentPlacement == 3)
-                thirdElementComboTaken = NO;
             tempElement.currentPlacement = 0;
             if([sideBarElements objectForKey:ID] != nil){
                 NSLog(@"Deleting %@", name);
@@ -148,7 +144,7 @@
                 tempElement.currentPlacement = 1;
                 [sideBarElements setObject:tempElement forKey:ID];
                 [UIView setAnimationDuration:0.2];
-                [tempElement setFrame:CGRectMake(280, 8, 64, 64)];
+                [tempElement setFrame:CGRectMake(280, 20, 64, 64)];
                 [UIView commitAnimations];
                 firstElementComboTaken = YES;
             }
@@ -159,21 +155,9 @@
                     tempElement.currentPlacement = 2;
                     [sideBarElements setObject:tempElement forKey:ID];
                     [UIView setAnimationDuration:0.2];
-                    [tempElement setFrame:CGRectMake(280, 80, 64, 64)];
+                    [tempElement setFrame:CGRectMake(280, 124, 64, 64)];
                     [UIView commitAnimations];
                     secondElementComboTaken = YES;
-                }
-                else {
-                    if(thirdElementComboTaken == NO){
-                        [UIView beginAnimations:nil context:NULL];
-                        tempElement.sitting = TRUE;
-                        tempElement.currentPlacement = 3;
-                        [sideBarElements setObject:tempElement forKey:ID];
-                        [UIView setAnimationDuration:0.2];
-                        [tempElement setFrame:CGRectMake(280, 152, 64, 64)];
-                        [UIView commitAnimations];
-                        thirdElementComboTaken = YES;
-                    }
                 }
             }
         }
@@ -205,8 +189,8 @@
         
         NSLog(@"Two Elements, Searching for Possible Matches");
         
-        Element *firstElement = [comboElements objectAtIndex:0];
-        Element *secondElement = [comboElements objectAtIndex:1];
+        firstElement = [comboElements objectAtIndex:0];
+        secondElement = [comboElements objectAtIndex:1];
         NSLog(@"Elements: %@ and %@", firstElement.elementName, secondElement.elementName);
         
         NSString *doubleCombined;
@@ -224,7 +208,7 @@
             doubleCombined = [[NSString alloc] initWithFormat:@"%@+%@", [firstElement elementName], [secondElement elementName]];
         }
         doubleFromDict = [doubleElementCombos objectForKey:doubleCombined];
-        
+        [doubleCombined release];
         if(doubleFromDict == nil){
             //If it's not found :P
             //Note: Add sound later
@@ -238,70 +222,48 @@
             NSString *ID = [[NSString alloc] initWithFormat:@"%u", epochTime];
             NSLog(@"Add: %@, %@", doubleFromDict, ID);
         
-            Element *element = [[Element alloc] initWithName:doubleFromDict andID:ID];
-            element.frame = CGRectMake(32, 32, 64, 64);
-            [element setDelegate:self];
-            [element setElementID:ID];
-            if([element isValid])
-                [self.boardView addSubview:element];
-            [initiatedElements setObject:element forKey:ID];
-            [element release];
-    
-            [sideBarElements removeObjectForKey:firstElement.elementID];
-            [initiatedElements removeObjectForKey:firstElement.elementID];
-            [firstElement removeFromSuperview];
-            [firstElement release];
-        
-            [sideBarElements removeObjectForKey:secondElement.elementID];
-            [initiatedElements removeObjectForKey:secondElement.elementID];
-            [secondElement removeFromSuperview];
-            [secondElement release];
+            tempComboElement = [[Element alloc] initWithName:doubleFromDict andID:ID];
+            tempComboElement.frame = CGRectMake(32, 32, 64, 64);
+            [tempComboElement setDelegate:self];
+            [tempComboElement setElementID:ID];
+
+            [initiatedElements setObject:tempComboElement forKey:ID];
+            
+            [UIView beginAnimations:nil context:NULL];
+            [UIView setAnimationDelegate:self];
+            [UIView setAnimationDidStopSelector:@selector(comboAnimDidStop:finished:context:)];
+            
+            [UIView setAnimationDuration:0.3];
+            [firstElement setFrame:[tempComboElement frame]];
+            [secondElement setFrame:[tempComboElement frame]];
+            [UIView commitAnimations];
+            
+            [tempComboElement release];
         
             firstElementComboTaken = NO;
             secondElementComboTaken = NO;
         }
     }
-    else if([comboElements count] == 3){
-        NSLog(@"Three Elements, Searching for Possible Matches");
-        Element *firstTripleElement = [comboElements objectAtIndex:0];
-        Element *secondTripleElement = [comboElements objectAtIndex:1];
-        Element *thirdTripleElement = [comboElements objectAtIndex:2];
-        
-        NSLog(@"Elements: %@+%@+%@", firstTripleElement.elementName, secondTripleElement.elementName, thirdTripleElement.elementName);
-        
-        NSString *tripleCombined;
-        NSString *tripleFromDict;
-        if([[firstTripleElement elementName] compare:[secondTripleElement elementName]] == -1 && [[secondTripleElement elementName] compare:[thirdTripleElement elementName]] == -1){
-            //All three are in alphebetical order
-            NSLog(@"Already in alphebatical order");
-            tripleCombined = [[NSString alloc] initWithFormat:@"%@+%@+%@", [firstTripleElement elementName], [secondTripleElement elementName], [thirdTripleElement elementName]];
-        }
-        else if([[firstTripleElement elementName] compare:[secondTripleElement elementName]] == -1 && [[thirdTripleElement elementName] compare:[secondTripleElement elementName]] == -1){
-            // ACB config
-            tripleCombined = [[NSString alloc] initWithFormat:@"%@+%@+%@", [firstTripleElement elementName], [thirdTripleElement elementName], [secondTripleElement elementName]];
-            NSLog(@"ACB Config, is now: %@", tripleCombined);
-        }
-        else if([[secondTripleElement elementName] compare:[firstTripleElement elementName]] == -1 && [[secondTripleElement elementName] compare:[thirdTripleElement elementName]] == -1){
-            //BAC config
-            tripleCombined = [[NSString alloc] initWithFormat:@"%@+%@+%@", [secondTripleElement elementName], [firstTripleElement elementName], [thirdTripleElement elementName]];
-            NSLog(@"BAC Config, is now: %@", tripleCombined);
-        }
-        else if([[secondTripleElement elementName] compare:[firstTripleElement elementName]] == -1 && [[thirdTripleElement elementName] compare:[secondTripleElement elementName]] == -1){
-            //CBA config
-            tripleCombined = [[NSString alloc] initWithFormat:@"%@+%@+%@", [thirdTripleElement elementName], [secondTripleElement elementName], [firstTripleElement elementName]];
-            NSLog(@"CBA Config, is now: %@", tripleCombined);
-        }
-        else if([[firstTripleElement elementName] isEqualToString:[secondTripleElement elementName]] && [[secondTripleElement elementName] isEqualToString:[thirdTripleElement elementName]]){
-            //All three are identical
-            NSLog(@"All Identical");
-            tripleCombined = [[NSString alloc] initWithFormat:@"%@+%@+%@", [firstTripleElement elementName], [secondTripleElement elementName], [thirdTripleElement elementName]];
-        }
-        tripleFromDict = [tripleElementCombos objectForKey:tripleCombined];
-        
-    }
-    else if([comboElements count] > 3){
+    else if([comboElements count] > 2){
         NSLog(@"More than 3 elements? Problem!");
     }
+    
+}
+
+- (void)comboAnimDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    
+    if([tempComboElement isValid])
+        [self.boardView addSubview:tempComboElement];
+    
+    [sideBarElements removeObjectForKey:firstElement.elementID];
+    [initiatedElements removeObjectForKey:firstElement.elementID];
+    [firstElement removeFromSuperview];
+    [firstElement release];
+    
+    [sideBarElements removeObjectForKey:secondElement.elementID];
+    [initiatedElements removeObjectForKey:secondElement.elementID];
+    [secondElement removeFromSuperview];
+    [secondElement release];
 }
 
 /*- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -333,6 +295,11 @@
 
 
 - (void)dealloc {
+    [sideBarView release];
+    [firstElement release];
+    [secondElement release];
+    [firstComboImageView release];
+    [secondComboImageView release];
     [doubleElementCombos release];
     [tripleElementCombos release];
     [initiatedElements release];

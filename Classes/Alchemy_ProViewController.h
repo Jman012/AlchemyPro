@@ -16,9 +16,16 @@
     IBOutlet UIView         *boardView;
     IBOutlet UIButton       *comboButton;
     
+    IBOutlet UIView         *sideBarView;
+    IBOutlet UIImageView    *firstComboImageView;
+    IBOutlet UIImageView    *secondComboImageView;
+    
+    Element                 *firstElement;
+    Element                 *secondElement;
+    Element                 *tempComboElement;
+    
     BOOL                    firstElementComboTaken;
     BOOL                    secondElementComboTaken;
-    BOOL                    thirdElementComboTaken;
     
     NSMutableDictionary     *initiatedElements;
     NSMutableDictionary     *sideBarElements;
@@ -31,15 +38,23 @@
 @property (nonatomic, retain) IBOutlet UIView       *boardView;
 @property (nonatomic, retain) IBOutlet UIButton     *comboButton;
 
+@property (nonatomic, retain) IBOutlet UIView       *sideBarView;
+@property (nonatomic, retain) IBOutlet UIImageView  *firstComboImageView;
+@property (nonatomic, retain) IBOutlet UIImageView  *secondComboImageView;
+
+@property (nonatomic, retain) Element               *firstElement;
+@property (nonatomic, retain) Element               *secondElement;
+@property (nonatomic, retain) Element               *tempComboElement;
+
 @property (nonatomic)   BOOL                        firstElementComboTaken;
 @property (nonatomic)   BOOL                        secondElementComboTaken;
-@property (nonatomic)   BOOL                        thirdElementComboTaken;
 
 @property (nonatomic, retain) NSMutableDictionary   *initiatedElements;
 @property (nonatomic, retain) NSMutableDictionary   *sideBarElements;
 
 @property (nonatomic, retain) NSDictionary          *doubleElementCombos;
-@property (nonatomic, retain) NSDictionary          *tripleElementCombos;
+
+
 
 - (void)boardAddElement:(NSString *)element;
 - (void)comboButtonPressed:(id)sender;
