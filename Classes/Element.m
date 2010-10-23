@@ -33,7 +33,8 @@
 
 - (void)loadVisualViews {    
     UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 64, 64)];
-    [backgroundImage setImage:[UIImage imageNamed:@"ElementBackground2.png"]];
+//    [backgroundImage setImage:[UIImage imageNamed:@"ElementBackground2.png"]];
+    [backgroundImage setImage:[UIImage imageNamed:@"BeveledElementBG.png"]];
     [backgroundImage setOpaque:TRUE];
     [self addSubview:backgroundImage];
     [backgroundImage release];
@@ -79,7 +80,14 @@
     return TRUE;
 }
 
+- (void)trash {
+    NSLog(@"%i", [self retainCount]);
+    [self release];
+}
+
 - (void)dealloc {
+    [elementName release];
+    [elementID release];
     [super dealloc];
 }
 

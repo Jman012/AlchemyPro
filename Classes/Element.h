@@ -46,5 +46,6 @@
 - (void)loadVisualViews;
 - (BOOL)isValid;
 - (id)initWithName:(NSString *)name andID:(NSString *)ID;
+- (void)trash;
 
 @end

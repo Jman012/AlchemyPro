@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Air+Earth</key>
+	<string>Dust</string>
+	<key>Air+Fire</key>
+	<string>Energy</string>
+	<key>Air+Water</key>
+	<string>Vapor</string>
+	<key>Earth+Fire</key>
+	<string>Lava</string>
+	<key>Earth+Water</key>
+	<string>Marsh</string>
+	<key>Fire+Water</key>
+	<string>Steam</string>
+	<key>Water+Water</key>
+	<string>Lake</string>
+</dict>
+</plist>

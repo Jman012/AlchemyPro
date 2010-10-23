@@ -17,8 +17,12 @@
 		B950AFB8124EF2C20056309D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B950AFB7124EF2C20056309D /* main.m */; };
 		B950AFBB124EF2C20056309D /* Alchemy_ProAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B950AFBA124EF2C20056309D /* Alchemy_ProAppDelegate.m */; };
 		B950AFBE124EF2C20056309D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = B950AFBC124EF2C20056309D /* MainWindow.xib */; };
-		B950AFC1124EF2C20056309D /* Alchemy_ProViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B950AFC0124EF2C20056309D /* Alchemy_ProViewController.m */; };
 		B950AFC4124EF2C20056309D /* Alchemy_ProViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B950AFC2124EF2C20056309D /* Alchemy_ProViewController.xib */; };
+		B96467A012738B3B000BA1B8 /* Alchemy_ProViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B964679F12738B3A000BA1B8 /* Alchemy_ProViewController.m */; };
+		B96467B31273917C000BA1B8 /* ElementCategories.plist in Resources */ = {isa = PBXBuildFile; fileRef = B96467B21273917C000BA1B8 /* ElementCategories.plist */; };
+		B9650B2B1273894C00AD010C /* ElementComboPList.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9650B2A1273894C00AD010C /* ElementComboPList.plist */; };
+		B990429A127146E7003A9C0E /* BeveledElementBG.png in Resources */ = {isa = PBXBuildFile; fileRef = B9904299127146E7003A9C0E /* BeveledElementBG.png */; };
+		B990429D12715144003A9C0E /* Trash.png in Resources */ = {isa = PBXBuildFile; fileRef = B990429C12715144003A9C0E /* Trash.png */; };
 		B99202DD125181BD006E8CC8 /* Element.m in Sources */ = {isa = PBXBuildFile; fileRef = B99202DC125181BD006E8CC8 /* Element.m */; };
 /* End PBXBuildFile section */
 
@@ -38,8 +42,12 @@
 		B950AFBA124EF2C20056309D /* Alchemy_ProAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Alchemy_ProAppDelegate.m; sourceTree = "<group>"; };
 		B950AFBD124EF2C20056309D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		B950AFBF124EF2C20056309D /* Alchemy_ProViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Alchemy_ProViewController.h; sourceTree = "<group>"; };
-		B950AFC0124EF2C20056309D /* Alchemy_ProViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Alchemy_ProViewController.m; sourceTree = "<group>"; };
 		B950AFC3124EF2C20056309D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Alchemy_ProViewController.xib; sourceTree = "<group>"; };
+		B964679F12738B3A000BA1B8 /* Alchemy_ProViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alchemy_ProViewController.m; sourceTree = "<group>"; };
+		B96467B21273917C000BA1B8 /* ElementCategories.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ElementCategories.plist; sourceTree = "<group>"; };
+		B9650B2A1273894C00AD010C /* ElementComboPList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ElementComboPList.plist; sourceTree = "<group>"; };
+		B9904299127146E7003A9C0E /* BeveledElementBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BeveledElementBG.png; path = "Alchemy Pro.xcodeproj/../../Documents/BeveledElementBG.png"; sourceTree = "<group>"; };
+		B990429C12715144003A9C0E /* Trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Trash.png; path = "Alchemy Pro.xcodeproj/../../Documents/Trash.png"; sourceTree = "<group>"; };
 		B99202DB125181BD006E8CC8 /* Element.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Element.h; sourceTree = "<group>"; };
 		B99202DC125181BD006E8CC8 /* Element.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Element.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,7 +83,7 @@
 				B950AFB9124EF2C20056309D /* Alchemy_ProAppDelegate.h */,
 				B950AFBA124EF2C20056309D /* Alchemy_ProAppDelegate.m */,
 				B950AFBF124EF2C20056309D /* Alchemy_ProViewController.h */,
-				B950AFC0124EF2C20056309D /* Alchemy_ProViewController.m */,
+				B964679F12738B3A000BA1B8 /* Alchemy_ProViewController.m */,
 				B99202DB125181BD006E8CC8 /* Element.h */,
 				B99202DC125181BD006E8CC8 /* Element.m */,
 			);
@@ -94,6 +102,10 @@
 		B950AFA3124EF2C20056309D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B96467B21273917C000BA1B8 /* ElementCategories.plist */,
+				B9650B2A1273894C00AD010C /* ElementComboPList.plist */,
+				B990429C12715144003A9C0E /* Trash.png */,
+				B9904299127146E7003A9C0E /* BeveledElementBG.png */,
 				B93F991C12557B7A0071D211 /* PlacementBackground.png */,
 				B93F9911125439B50071D211 /* SampleElementIcon2.png */,
 				B93F98DA12542B940071D211 /* ElementBackground2.png */,
@@ -179,6 +191,10 @@
 				B93F98DB12542B940071D211 /* ElementBackground2.png in Resources */,
 				B93F9912125439B50071D211 /* SampleElementIcon2.png in Resources */,
 				B93F991D12557B7A0071D211 /* PlacementBackground.png in Resources */,
+				B990429A127146E7003A9C0E /* BeveledElementBG.png in Resources */,
+				B990429D12715144003A9C0E /* Trash.png in Resources */,
+				B9650B2B1273894C00AD010C /* ElementComboPList.plist in Resources */,
+				B96467B31273917C000BA1B8 /* ElementCategories.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,8 +207,8 @@
 			files = (
 				B950AFB8124EF2C20056309D /* main.m in Sources */,
 				B950AFBB124EF2C20056309D /* Alchemy_ProAppDelegate.m in Sources */,
-				B950AFC1124EF2C20056309D /* Alchemy_ProViewController.m in Sources */,
 				B99202DD125181BD006E8CC8 /* Element.m in Sources */,
+				B96467A012738B3B000BA1B8 /* Alchemy_ProViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,7 +252,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				PREBINDING = NO;
 				SDKROOT = iphoneos4.1;
 			};
@@ -250,7 +266,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
 				SDKROOT = iphoneos4.1;

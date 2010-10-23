@@ -13,10 +13,11 @@
 
 @synthesize catList, boardView, comboButton;
 @synthesize sideBarView, firstComboImageView, secondComboImageView;
-@synthesize firstElement, secondElement, tempComboElement;
+@synthesize firstElement, secondElement, tempComboElement, deleteElement;
 @synthesize firstElementComboTaken, secondElementComboTaken;
 @synthesize initiatedElements, sideBarElements;
-@synthesize doubleElementCombos;
+@synthesize doubleElementCombos, elementCategories;
+@synthesize deleteID;
 
 
 /*
@@ -42,19 +43,20 @@
     initiatedElements = [[NSMutableDictionary alloc] init];
     sideBarElements = [[NSMutableDictionary alloc] init];
     
-    //The setup for the double combinations
-    NSArray *doubleElementNames = [[NSArray alloc] initWithObjects:     @"Marsh",       @"Lava",        @"Energy",      @"Steam",       @"Dust",        @"Lake",        @"Vapor", nil];
-    NSArray *doubleElementDefines = [[NSArray alloc] initWithObjects:   @"Earth+Water", @"Earth+Fire",  @"Air+Fire",    @"Fire+Water",  @"Air+Earth",   @"Water+Water", @"Air+Water", nil];
-    doubleElementCombos = [[NSDictionary alloc] initWithObjects:doubleElementNames forKeys:doubleElementDefines];
-    [doubleElementNames release];
-    [doubleElementDefines release];
+    //The setup for the double combinations and repective categories
+    NSBundle *myBundle = [NSBundle mainBundle];
+    NSString *path = [myBundle pathForResource:@"ElementComboPList" ofType:@"plist"];
+    doubleElementCombos = [[NSDictionary alloc] initWithContentsOfFile:path];
+
+    path = [myBundle pathForResource:@"ElementCategories" ofType:@"plist"];
+    elementCategories = [[NSDictionary alloc] initWithContentsOfFile:path];
     
     //Get a list of already unlocked Elements, not fully implemented yet
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
     catList = [settings objectForKey:@"AlchemyCategoryList"];
     if(catList == nil){
         NSLog(@"Is nil");
-        catList = [[NSArray alloc] initWithObjects:@"Water", @"Fire", @"Air", @"Earth", @"Blank", nil]; 
+        catList = [[NSArray alloc] initWithObjects:@"Water", @"Fire", @"Air", @"Earth", nil]; 
     }
     [settings release];
     firstElementComboTaken = NO;
@@ -91,6 +93,7 @@
         [self.boardView addSubview:element];
     [initiatedElements setObject:element forKey:ID];
     [element release];
+    element = nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -106,6 +109,26 @@
     CGPoint pt = [[touches anyObject] locationInView:tempElement];
     tempElement.startPosition = pt;
     [boardView bringSubviewToFront:tempElement];
+    UITouch *touch = [touches anyObject];
+    if([touch tapCount] == 2){
+        deleteElement = tempElement;
+        deleteID = ID;
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(deleteAnimDidStop:finished:context:)];
+        [UIView setAnimationDuration:0.3];
+        [tempElement setTransform:CGAffineTransformMakeScale(0.1, 0.1)];
+//        [tempElement setFrame:CGRectMake(tempElement.frame.origin.x, tempElement.frame.origin.y, 0, 0)];
+        [UIView commitAnimations];
+    }
+}
+
+- (void)deleteAnimDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    if([deleteElement sitting] == TRUE){
+        [sideBarElements removeObjectForKey:deleteID];
+    }
+    [initiatedElements removeObjectForKey:deleteID];
+    [deleteElement removeFromSuperview];
 }
 
 - (void)elementWasMovedWithName:(NSString *)name andID:(NSString *)ID touch:(NSSet *)touches andEvent:(UIEvent *)event {
@@ -164,11 +187,10 @@
     }
 }
 
-
 - (void)comboButtonPressed:(id)sender {
     NSLog(@"Button touched");
     Element *markerElement = [[Element alloc] init];
-    NSArray *comboElements = [[NSArray alloc] initWithArray:[sideBarElements objectsForKeys:[sideBarElements allKeys] notFoundMarker:markerElement]];
+    NSMutableArray *comboElements = [[NSArray alloc] initWithArray:[sideBarElements objectsForKeys:[sideBarElements allKeys] notFoundMarker:markerElement]];
     
     [markerElement release];
     if([comboElements count] == 0){
@@ -295,13 +317,14 @@
 
 
 - (void)dealloc {
+    [deleteID release];
+    [deleteElement release];
     [sideBarView release];
     [firstElement release];
     [secondElement release];
     [firstComboImageView release];
     [secondComboImageView release];
     [doubleElementCombos release];
-    [tripleElementCombos release];
     [initiatedElements release];
     [sideBarElements release];
     [boardView release];
