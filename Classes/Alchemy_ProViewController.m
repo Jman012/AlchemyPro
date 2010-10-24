@@ -7,6 +7,7 @@
 //
 
 #import "Alchemy_ProViewController.h"
+#import "SpecificCategoryViewController.h"
 
 @implementation Alchemy_ProViewController
 
@@ -56,7 +57,7 @@
     catList = [settings objectForKey:@"AlchemyCategoryList"];
     if(catList == nil){
         NSLog(@"Is nil");
-        catList = [[NSArray alloc] initWithObjects:@"Water", @"Fire", @"Air", @"Earth", nil]; 
+        catList = [[NSArray alloc] initWithObjects:@"Water", @"Fire", @"Air", @"Earth", @"Blank", nil]; 
     }
     [settings release];
     firstElementComboTaken = NO;
@@ -99,6 +100,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.row < 4){
         [self boardAddElement:[catList objectAtIndex:indexPath.row]];
+    }
+    else if(indexPath.row >= 4){
+        NSLog(@"EARG: %@", [catList objectAtIndex:indexPath.row]);
+        //[self presentModalViewController:instanceOfNewView animated:YES];
+        //[[self parentViewController] dismissModalViewControllerAnimated:YES];
+        
+        NSBundle *mainBundle = [NSBundle mainBundle];
+        NSString *nibName = [mainBundle pathForResource:@"SpecificCategoryViewController" ofType:@"xib"];
+        SpecificCategoryViewController *catViewController = [[SpecificCategoryViewController alloc] initWithNibName:nibName bundle:nil];
+        [catViewController giveCategory:[catList objectAtIndex:indexPath.row]];
+        [self presentModalViewController:catViewController animated:YES];
+        
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -287,13 +300,6 @@
     [secondElement removeFromSuperview];
     [secondElement release];
 }
-
-/*- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-//    UITouch *touch = [[event allTouches] anyObject];
-//    if([touch view] == boardView){
-//        NSLog(@"Touched %@", [touch view]);
-//    }
-}*/
 
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

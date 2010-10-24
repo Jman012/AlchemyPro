@@ -22,8 +22,9 @@
 		B96467B31273917C000BA1B8 /* ElementCategories.plist in Resources */ = {isa = PBXBuildFile; fileRef = B96467B21273917C000BA1B8 /* ElementCategories.plist */; };
 		B9650B2B1273894C00AD010C /* ElementComboPList.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9650B2A1273894C00AD010C /* ElementComboPList.plist */; };
 		B990429A127146E7003A9C0E /* BeveledElementBG.png in Resources */ = {isa = PBXBuildFile; fileRef = B9904299127146E7003A9C0E /* BeveledElementBG.png */; };
-		B990429D12715144003A9C0E /* Trash.png in Resources */ = {isa = PBXBuildFile; fileRef = B990429C12715144003A9C0E /* Trash.png */; };
 		B99202DD125181BD006E8CC8 /* Element.m in Sources */ = {isa = PBXBuildFile; fileRef = B99202DC125181BD006E8CC8 /* Element.m */; };
+		B9FF40BD1273EA36003F667E /* SpecificCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FF40BB1273EA36003F667E /* SpecificCategoryViewController.m */; };
+		B9FF40BE1273EA36003F667E /* SpecificCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9FF40BC1273EA36003F667E /* SpecificCategoryViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,9 +48,11 @@
 		B96467B21273917C000BA1B8 /* ElementCategories.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ElementCategories.plist; sourceTree = "<group>"; };
 		B9650B2A1273894C00AD010C /* ElementComboPList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ElementComboPList.plist; sourceTree = "<group>"; };
 		B9904299127146E7003A9C0E /* BeveledElementBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BeveledElementBG.png; path = "Alchemy Pro.xcodeproj/../../Documents/BeveledElementBG.png"; sourceTree = "<group>"; };
-		B990429C12715144003A9C0E /* Trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Trash.png; path = "Alchemy Pro.xcodeproj/../../Documents/Trash.png"; sourceTree = "<group>"; };
 		B99202DB125181BD006E8CC8 /* Element.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Element.h; sourceTree = "<group>"; };
 		B99202DC125181BD006E8CC8 /* Element.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Element.m; sourceTree = "<group>"; };
+		B9FF40BA1273EA36003F667E /* SpecificCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecificCategoryViewController.h; sourceTree = "<group>"; };
+		B9FF40BB1273EA36003F667E /* SpecificCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecificCategoryViewController.m; sourceTree = "<group>"; };
+		B9FF40BC1273EA36003F667E /* SpecificCategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SpecificCategoryViewController.xib; path = Classes/SpecificCategoryViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +89,8 @@
 				B964679F12738B3A000BA1B8 /* Alchemy_ProViewController.m */,
 				B99202DB125181BD006E8CC8 /* Element.h */,
 				B99202DC125181BD006E8CC8 /* Element.m */,
+				B9FF40BA1273EA36003F667E /* SpecificCategoryViewController.h */,
+				B9FF40BB1273EA36003F667E /* SpecificCategoryViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -104,12 +109,12 @@
 			children = (
 				B96467B21273917C000BA1B8 /* ElementCategories.plist */,
 				B9650B2A1273894C00AD010C /* ElementComboPList.plist */,
-				B990429C12715144003A9C0E /* Trash.png */,
 				B9904299127146E7003A9C0E /* BeveledElementBG.png */,
 				B93F991C12557B7A0071D211 /* PlacementBackground.png */,
 				B93F9911125439B50071D211 /* SampleElementIcon2.png */,
 				B93F98DA12542B940071D211 /* ElementBackground2.png */,
 				B950AFB2124EF2C20056309D /* Alchemy_Pro-Info.plist */,
+				B9FF40BC1273EA36003F667E /* SpecificCategoryViewController.xib */,
 				B950AFB4124EF2C20056309D /* InfoPlist.strings */,
 				B950AFBC124EF2C20056309D /* MainWindow.xib */,
 				B950AFC2124EF2C20056309D /* Alchemy_ProViewController.xib */,
@@ -192,9 +197,9 @@
 				B93F9912125439B50071D211 /* SampleElementIcon2.png in Resources */,
 				B93F991D12557B7A0071D211 /* PlacementBackground.png in Resources */,
 				B990429A127146E7003A9C0E /* BeveledElementBG.png in Resources */,
-				B990429D12715144003A9C0E /* Trash.png in Resources */,
 				B9650B2B1273894C00AD010C /* ElementComboPList.plist in Resources */,
 				B96467B31273917C000BA1B8 /* ElementCategories.plist in Resources */,
+				B9FF40BE1273EA36003F667E /* SpecificCategoryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +214,7 @@
 				B950AFBB124EF2C20056309D /* Alchemy_ProAppDelegate.m in Sources */,
 				B99202DD125181BD006E8CC8 /* Element.m in Sources */,
 				B96467A012738B3B000BA1B8 /* Alchemy_ProViewController.m in Sources */,
+				B9FF40BD1273EA36003F667E /* SpecificCategoryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
