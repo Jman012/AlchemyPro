@@ -57,7 +57,7 @@
     catList = [settings objectForKey:@"AlchemyCategoryList"];
     if(catList == nil){
         NSLog(@"Is nil");
-        catList = [[NSArray alloc] initWithObjects:@"Water", @"Fire", @"Air", @"Earth", @"Blank", nil]; 
+        catList = [[NSArray alloc] initWithObjects:@"Water", @"Fire", @"Air", @"Earth", @"Gas", @"Geography", nil]; 
     }
     [settings release];
     firstElementComboTaken = NO;
@@ -102,14 +102,16 @@
         [self boardAddElement:[catList objectAtIndex:indexPath.row]];
     }
     else if(indexPath.row >= 4){
-        NSLog(@"EARG: %@", [catList objectAtIndex:indexPath.row]);
         //[self presentModalViewController:instanceOfNewView animated:YES];
         //[[self parentViewController] dismissModalViewControllerAnimated:YES];
         
         NSBundle *mainBundle = [NSBundle mainBundle];
         NSString *nibName = [mainBundle pathForResource:@"SpecificCategoryViewController" ofType:@"xib"];
         SpecificCategoryViewController *catViewController = [[SpecificCategoryViewController alloc] initWithNibName:nibName bundle:nil];
+        NSArray *elementsToSend = [elementCategories objectForKey:[catList objectAtIndex:indexPath.row]];
+        [catViewController giveElementsInCategory:elementsToSend];
         [catViewController giveCategory:[catList objectAtIndex:indexPath.row]];
+        [catViewController setDelegate:self];
         [self presentModalViewController:catViewController animated:YES];
         
     }
@@ -301,6 +303,13 @@
     [secondElement release];
 }
 
+- (void)passChosenElement:(NSString *)chosenElementName {
+    if(chosenElementName != nil){
+        chosenElement = chosenElementName;
+        [self boardAddElement:chosenElement];
+    }
+}
+
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
@@ -323,6 +332,8 @@
 
 
 - (void)dealloc {
+    [chosenElement release];
+    [elementCategories release];
     [deleteID release];
     [deleteElement release];
     [sideBarView release];

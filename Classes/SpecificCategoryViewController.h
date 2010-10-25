@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SpecificCategoryViewControllerDelegate <NSObject>
+@required
+- (void)passChosenElement:(NSString *)chosenElementName;
+@end
+    
 
 @interface SpecificCategoryViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    id                          <SpecificCategoryViewControllerDelegate> delegate;
+    
     IBOutlet UIBarButtonItem    *backButton;
     IBOutlet UIToolbar          *toolbar;
     IBOutlet UITableView        *mainTableView;
@@ -18,6 +25,7 @@
     NSString                    *category;
     
     NSDictionary                *elementCategories;
+    NSArray                     *elementsInCategory;
 }
 
 @property (nonatomic, retain) IBOutlet UIBarButtonItem  *backButton;
@@ -28,8 +36,12 @@
 @property (nonatomic, retain) NSString                  *category;
 
 @property (nonatomic, retain) NSDictionary              *elementCategories;
+@property (nonatomic, retain) NSArray                   *elementsInCategory;
 
+
+- (void)setDelegate:(id <SpecificCategoryViewControllerDelegate>)dlg;
 - (IBAction)backButtonPressed:(id)sender;
 - (void)giveCategory:(NSString *)categoryName;
+- (void)giveElementsInCategory:(NSArray *)arrayWithElements;
 
 @end

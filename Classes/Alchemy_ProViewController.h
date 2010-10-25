@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "Element.h"
+#import "SpecificCategoryViewController.h"
 
 
-@interface Alchemy_ProViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, ElementDelegate>{
+@interface Alchemy_ProViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, ElementDelegate, SpecificCategoryViewControllerDelegate>{
     NSArray                 *catList;
     IBOutlet UIView         *boardView;
     IBOutlet UIButton       *comboButton;
@@ -33,8 +34,9 @@
     NSMutableDictionary     *sideBarElements;
     
     NSDictionary            *doubleElementCombos;
-    
     NSDictionary            *elementCategories;
+    
+    NSString                *chosenElement;
 }
 
 @property (nonatomic, retain) NSArray               *catList;

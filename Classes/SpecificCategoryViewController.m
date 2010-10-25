@@ -13,15 +13,20 @@
 
 
 @synthesize backButton, toolbar, mainTableView, titleLabel;
-@synthesize category, elementCategories;
+@synthesize category, elementCategories, elementsInCategory;
 
+
+- (void)setDelegate:(id <SpecificCategoryViewControllerDelegate>)dlg {
+    delegate = dlg;
+}
 
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         // Custom initialization
-        category = @"Blank";
+        category = @"Blank, if you see this, it's an error";
+        NSLog(@"init");
     }
     return self;
 }
@@ -30,6 +35,14 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+    /*
+    NSBundle *myBundle = [NSBundle mainBundle];
+    NSString *path = [myBundle pathForResource:@"ElementCategories" ofType:@"plist"];
+    elementCategories = [[NSDictionary alloc] initWithContentsOfFile:path];
+    elementsInCategory = [elementCategories objectForKey:category];
+     */
+    NSLog(@"viewDidLoad");
+    NSLog(@"%@", mainTableView);
     [titleLabel setText:category];
     [super viewDidLoad];
 }
@@ -44,37 +57,46 @@
 
 
 - (int)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    NSLog(@"numOFRows");
+    return [elementsInCategory count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"Cell";
+    NSLog(@"cellForRow");
+    static NSString *CellIdentifier = @"Alchemy";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    // Configure the cell...
+    cell.textLabel.text = [elementsInCategory objectAtIndex:indexPath.row];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSString *tempChosenElement = [elementsInCategory objectAtIndex:indexPath.row];
+    [delegate passChosenElement:tempChosenElement];
+    [[self parentViewController] dismissModalViewControllerAnimated:YES];
 }
 
 - (IBAction)backButtonPressed:(id)sender {
-    NSLog(@"Back Button Pressed");
     [[self parentViewController] dismissModalViewControllerAnimated:YES];
 }
 
 - (void)giveCategory:(NSString *)categoryName {
     if(categoryName != nil){
         category = categoryName;
-        NSLog(@"Category: %@", category);
     }
+}
+
+- (void)giveElementsInCategory:(NSArray *)arrayWithElements {
+    if(arrayWithElements != nil){
+        elementsInCategory = arrayWithElements;
+        [mainTableView reloadData];
+    }
+    NSLog(@"giveElements");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,6 +114,10 @@
 
 
 - (void)dealloc {
+    [elementCategories release];
+    [elementsInCategory release];
+    [category release];
+    [titleLabel release];
     [backButton release];
     [mainTableView release];
     [toolbar release];
