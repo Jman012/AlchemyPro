@@ -13,12 +13,12 @@
 
 
 @synthesize catList, boardView, comboButton;
-@synthesize sideBarView, firstComboImageView, secondComboImageView;
+@synthesize sideBarView, firstComboImageView, secondComboImageView, catTableView;
 @synthesize firstElement, secondElement, tempComboElement, deleteElement;
 @synthesize firstElementComboTaken, secondElementComboTaken;
 @synthesize initiatedElements, sideBarElements;
-@synthesize doubleElementCombos, elementCategories;
-@synthesize deleteID;
+@synthesize doubleElementCombos, elementCategories, elementsForCategory;
+@synthesize deleteID, unlockedElements, unlockedCategories;
 
 
 /*
@@ -52,12 +52,23 @@
     path = [myBundle pathForResource:@"ElementCategories" ofType:@"plist"];
     elementCategories = [[NSDictionary alloc] initWithContentsOfFile:path];
     
+    path = [myBundle pathForResource:@"ElementsForCategory" ofType:@"plist"];
+    elementsForCategory = [[NSDictionary alloc] initWithContentsOfFile:path];
+    
     //Get a list of already unlocked Elements, not fully implemented yet
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
     catList = [settings objectForKey:@"AlchemyCategoryList"];
+    unlockedElements = [settings objectForKey:@"AlchemyUnlockedElements"];
+    unlockedCategories = [settings objectForKey:@"AlchemyUnlockedCategories"];
     if(catList == nil){
         NSLog(@"Is nil");
-        catList = [[NSArray alloc] initWithObjects:@"Water", @"Fire", @"Air", @"Earth", @"Gas", @"Geography", nil]; 
+        catList = [[NSMutableArray alloc] initWithObjects:@"Water", @"Fire", @"Air", @"Earth", nil];
+    }
+    if(unlockedElements == nil){
+        unlockedElements = [[NSMutableArray alloc] initWithObjects:@"Water", @"Fire", @"Air", @"Earth", nil];
+    }
+    if(unlockedCategories == nil){
+        unlockedCategories = [[NSMutableArray alloc] initWithArray:nil];
     }
     [settings release];
     firstElementComboTaken = NO;
@@ -111,6 +122,18 @@
         NSArray *elementsToSend = [elementCategories objectForKey:[catList objectAtIndex:indexPath.row]];
         [catViewController giveElementsInCategory:elementsToSend];
         [catViewController giveCategory:[catList objectAtIndex:indexPath.row]];
+        NSMutableArray *tempUnlockedToGive = [[NSMutableArray alloc] initWithArray:[elementCategories objectForKey:[catList objectAtIndex:indexPath.row]]];
+        NSMutableArray *temptemp = [tempUnlockedToGive copy];
+        for(NSString *tempString in temptemp){
+            if([unlockedElements containsObject:tempString] == TRUE){
+                NSLog(@"Keep object: %@", tempString);
+            }
+            else {
+                NSLog(@"Remove un-unlocked object :%@", tempString);
+                [tempUnlockedToGive removeObject:tempString];
+            }
+        }
+        [catViewController giveUnlockedElementsForCategory:tempUnlockedToGive];
         [catViewController setDelegate:self];
         [self presentModalViewController:catViewController animated:YES];
         
@@ -279,6 +302,25 @@
         
             firstElementComboTaken = NO;
             secondElementComboTaken = NO;
+            
+            if([unlockedElements containsObject:doubleFromDict] == FALSE){
+                [unlockedElements addObject:doubleFromDict];
+                NSLog(@"%@ added to unlocked", doubleFromDict);
+                NSString *tempCat = [elementsForCategory objectForKey:doubleFromDict];
+                if([unlockedCategories containsObject:tempCat] == FALSE){
+                    NSLog(@"%@ added to unlocked cats", tempCat);
+                    [catTableView beginUpdates];
+                    [unlockedCategories addObject:tempCat];
+                    [catList addObject:tempCat];
+//                    [catTableView reloadData];
+                    [catTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[catList count]-1 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+                    
+                    [catTableView endUpdates];
+                }
+            }
+            else {
+                //Soudns or whatever for if already unlocked
+            }
         }
     }
     else if([comboElements count] > 2){
@@ -332,21 +374,32 @@
 
 
 - (void)dealloc {
-    [chosenElement release];
-    [elementCategories release];
-    [deleteID release];
-    [deleteElement release];
-    [sideBarView release];
-    [firstElement release];
-    [secondElement release];
-    [firstComboImageView release];
-    [secondComboImageView release];
-    [doubleElementCombos release];
-    [initiatedElements release];
-    [sideBarElements release];
+    [catList release];
     [boardView release];
     [comboButton release];
-    [catList release];
+    [sideBarView release];
+    [firstComboImageView release];
+    [secondComboImageView release];
+    [catTableView release];
+    
+    [firstElement release];
+    [secondElement release];
+    [tempComboElement release];
+    [deleteElement release];
+    
+    [deleteID release];
+    
+    [initiatedElements release];
+    [sideBarElements release];
+    
+    [doubleElementCombos release];
+    [elementCategories release];
+    [elementsForCategory release];
+    
+    [chosenElement release];
+    
+    [unlockedElements release];
+    [unlockedCategories release];
     [super dealloc];
 }
 

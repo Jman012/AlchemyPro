@@ -12,13 +12,14 @@
 
 
 @interface Alchemy_ProViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, ElementDelegate, SpecificCategoryViewControllerDelegate>{
-    NSArray                 *catList;
+    NSMutableArray          *catList;
     IBOutlet UIView         *boardView;
     IBOutlet UIButton       *comboButton;
     
     IBOutlet UIView         *sideBarView;
     IBOutlet UIImageView    *firstComboImageView;
     IBOutlet UIImageView    *secondComboImageView;
+    IBOutlet UITableView    *catTableView;
     
     Element                 *firstElement;
     Element                 *secondElement;
@@ -35,17 +36,22 @@
     
     NSDictionary            *doubleElementCombos;
     NSDictionary            *elementCategories;
+    NSDictionary            *elementsForCategory;
     
     NSString                *chosenElement;
+    
+    NSMutableArray          *unlockedElements;
+    NSMutableArray          *unlockedCategories;
 }
 
-@property (nonatomic, retain) NSArray               *catList;
+@property (nonatomic, retain) NSMutableArray               *catList;
 @property (nonatomic, retain) IBOutlet UIView       *boardView;
 @property (nonatomic, retain) IBOutlet UIButton     *comboButton;
 
 @property (nonatomic, retain) IBOutlet UIView       *sideBarView;
 @property (nonatomic, retain) IBOutlet UIImageView  *firstComboImageView;
 @property (nonatomic, retain) IBOutlet UIImageView  *secondComboImageView;
+@property (nonatomic, retain) IBOutlet UITableView  *catTableView;
 
 @property (nonatomic, retain) Element               *firstElement;
 @property (nonatomic, retain) Element               *secondElement;
@@ -62,6 +68,10 @@
 
 @property (nonatomic, retain) NSDictionary          *doubleElementCombos;
 @property (nonatomic, retain) NSDictionary          *elementCategories;
+@property (nonatomic, retain) NSDictionary          *elementsForCategory;
+
+@property (nonatomic, retain) NSMutableArray        *unlockedElements;
+@property (nonatomic, retain) NSMutableArray        *unlockedCategories;
 
 
 

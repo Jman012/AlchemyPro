@@ -13,7 +13,7 @@
 
 
 @synthesize backButton, toolbar, mainTableView, titleLabel;
-@synthesize category, elementCategories, elementsInCategory;
+@synthesize category, elementCategories, elementsInCategory, unlockedElementsToShow;
 
 
 - (void)setDelegate:(id <SpecificCategoryViewControllerDelegate>)dlg {
@@ -42,7 +42,6 @@
     elementsInCategory = [elementCategories objectForKey:category];
      */
     NSLog(@"viewDidLoad");
-    NSLog(@"%@", mainTableView);
     [titleLabel setText:category];
     [super viewDidLoad];
 }
@@ -57,8 +56,7 @@
 
 
 - (int)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"numOFRows");
-    return [elementsInCategory count];
+    return [unlockedElementsToShow count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -70,7 +68,7 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    cell.textLabel.text = [elementsInCategory objectAtIndex:indexPath.row];
+    cell.textLabel.text = [unlockedElementsToShow objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -94,9 +92,12 @@
 - (void)giveElementsInCategory:(NSArray *)arrayWithElements {
     if(arrayWithElements != nil){
         elementsInCategory = arrayWithElements;
-        [mainTableView reloadData];
     }
-    NSLog(@"giveElements");
+}
+
+- (void)giveUnlockedElementsForCategory:(NSArray *)unlocked {
+    unlockedElementsToShow = unlocked;
+    NSLog(@"Unlocked: %@", unlockedElementsToShow);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -114,6 +115,7 @@
 
 
 - (void)dealloc {
+    [unlockedElementsToShow release];
     [elementCategories release];
     [elementsInCategory release];
     [category release];

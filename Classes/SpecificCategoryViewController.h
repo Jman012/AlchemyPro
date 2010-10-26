@@ -26,6 +26,7 @@
     
     NSDictionary                *elementCategories;
     NSArray                     *elementsInCategory;
+    NSArray                     *unlockedElementsToShow;
 }
 
 @property (nonatomic, retain) IBOutlet UIBarButtonItem  *backButton;
@@ -37,11 +38,13 @@
 
 @property (nonatomic, retain) NSDictionary              *elementCategories;
 @property (nonatomic, retain) NSArray                   *elementsInCategory;
+@property (nonatomic, retain) NSArray                   *unlockedElementsToShow;
 
 
 - (void)setDelegate:(id <SpecificCategoryViewControllerDelegate>)dlg;
 - (IBAction)backButtonPressed:(id)sender;
 - (void)giveCategory:(NSString *)categoryName;
 - (void)giveElementsInCategory:(NSArray *)arrayWithElements;
+- (void)giveUnlockedElementsForCategory:(NSArray *)unlocked;
 
 @end

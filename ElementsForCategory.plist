@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Dust</key>
+	<string>Mineral</string>
+	<key>Energy</key>
+	<string>Basis</string>
+	<key>Lake</key>
+	<string>Geography</string>
+	<key>Lava</key>
+	<string>Liquid</string>
+	<key>Marsh</key>
+	<string>Geography</string>
+	<key>Steam</key>
+	<string>Gas</string>
+	<key>Vapor</key>
+	<string>Gas</string>
+</dict>
+</plist>
