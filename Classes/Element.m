@@ -5,7 +5,7 @@
 @implementation Element
 
 
-@synthesize elementName, elementID, delegate;
+@synthesize elementName, elementID, delegate, selectedOverview;
 @synthesize startPosition, sitting, inSideBar, currentPlacement;
 
 - (void)setDelegate:(id <ElementDelegate>)dlg {
@@ -34,14 +34,16 @@
 - (void)loadVisualViews {    
     UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 64, 64)];
 //    [backgroundImage setImage:[UIImage imageNamed:@"ElementBackground2.png"]];
-    [backgroundImage setImage:[UIImage imageNamed:@"BeveledElementBG.png"]];
-    [backgroundImage setOpaque:TRUE];
+//    [backgroundImage setImage:[UIImage imageNamed:@"BeveledElementBG.png"]];
+    [backgroundImage setImage:[UIImage imageNamed:@"ElementBackground2.png"]];
+    backgroundImage.alpha = 0.50;
     [self addSubview:backgroundImage];
     [backgroundImage release];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 38, 64, 21)];
     [label setBackgroundColor:[UIColor clearColor]];
-    [label setTextColor:[UIColor whiteColor]];
+//    [label setTextColor:[UIColor whiteColor]];
+    [label setTextColor:[UIColor blackColor]];
     [label setAdjustsFontSizeToFitWidth:TRUE];
     [label setTextAlignment:UITextAlignmentCenter];
     [label setText:elementName];
@@ -53,6 +55,11 @@
     [mainImage setOpaque:TRUE];
     [self addSubview:mainImage];
     [mainImage release];
+    
+    selectedOverview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 64, 64)];
+    [selectedOverview setImage:[UIImage imageNamed:@"PlacementBackground.png"]];
+    selectedOverview.alpha = 0.00;
+    [self addSubview:selectedOverview];
     
     [[self superview] bringSubviewToFront:self];
 }
@@ -81,11 +88,20 @@
 }
 
 - (void)trash {
-    NSLog(@"%i", [self retainCount]);
     [self release];
 }
 
+- (void)setSelected:(BOOL)isSelected {
+    if(isSelected == YES){
+        selectedOverview.alpha = 1.00;
+    }
+    else if(isSelected == NO){
+        selectedOverview.alpha = 0.00;
+    }
+}
+
 - (void)dealloc {
+    [selectedOverview release];
     [elementName release];
     [elementID release];
     [super dealloc];

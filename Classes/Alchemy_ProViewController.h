@@ -21,6 +21,10 @@
     IBOutlet UIImageView    *secondComboImageView;
     IBOutlet UITableView    *catTableView;
     
+    IBOutlet UIBarButtonItem *addButton;
+    IBOutlet UIBarButtonItem *infoForElement;
+    IBOutlet UIBarButtonItem *removeButton;
+    
     Element                 *firstElement;
     Element                 *secondElement;
     Element                 *tempComboElement;
@@ -42,9 +46,11 @@
     
     NSMutableArray          *unlockedElements;
     NSMutableArray          *unlockedCategories;
+    
+    Element                 *selectedElement;
 }
 
-@property (nonatomic, retain) NSMutableArray               *catList;
+@property (nonatomic, retain) NSMutableArray        *catList;
 @property (nonatomic, retain) IBOutlet UIView       *boardView;
 @property (nonatomic, retain) IBOutlet UIButton     *comboButton;
 
@@ -52,6 +58,10 @@
 @property (nonatomic, retain) IBOutlet UIImageView  *firstComboImageView;
 @property (nonatomic, retain) IBOutlet UIImageView  *secondComboImageView;
 @property (nonatomic, retain) IBOutlet UITableView  *catTableView;
+
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *addButton;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *infoForElement;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *removeButton;
 
 @property (nonatomic, retain) Element               *firstElement;
 @property (nonatomic, retain) Element               *secondElement;
@@ -73,11 +83,16 @@
 @property (nonatomic, retain) NSMutableArray        *unlockedElements;
 @property (nonatomic, retain) NSMutableArray        *unlockedCategories;
 
+@property (nonatomic, retain) Element               *selectedElement;
+
 
 
 - (void)boardAddElement:(NSString *)element;
 - (void)comboButtonPressed:(id)sender;
 - (void)comboAnimDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 - (void)deleteAnimDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
+- (IBAction)addButtonPushed:(id)sender;
+- (IBAction)infoForElementButtonPushed:(id)sender;
+- (IBAction)removeButtonPushed:(id)sender;
 
 @end

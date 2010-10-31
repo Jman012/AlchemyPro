@@ -29,7 +29,7 @@
 	id                          <ElementDelegate> delegate;
     CGPoint                     startPosition;
 
-    
+    UIImageView                 *selectedOverview;
 }
 
 @property (nonatomic, retain) NSString                      *elementName;
@@ -39,6 +39,7 @@
 @property (nonatomic)         BOOL                          sitting;
 @property (nonatomic)         BOOL                          inSideBar;
 @property (nonatomic)         int                           currentPlacement;
+@property (nonatomic, retain) UIImageView                   *selectedOverview;
 
 
 
@@ -47,5 +48,6 @@
 - (BOOL)isValid;
 - (id)initWithName:(NSString *)name andID:(NSString *)ID;
 - (void)trash;
+- (void)setSelected:(BOOL)isSelected;
 
 @end

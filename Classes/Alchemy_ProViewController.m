@@ -8,17 +8,20 @@
 
 #import "Alchemy_ProViewController.h"
 #import "SpecificCategoryViewController.h"
+#import "ElementSelectionView.h"
 
 @implementation Alchemy_ProViewController
 
 
 @synthesize catList, boardView, comboButton;
 @synthesize sideBarView, firstComboImageView, secondComboImageView, catTableView;
+@synthesize addButton, infoForElement, removeButton;
 @synthesize firstElement, secondElement, tempComboElement, deleteElement;
 @synthesize firstElementComboTaken, secondElementComboTaken;
 @synthesize initiatedElements, sideBarElements;
 @synthesize doubleElementCombos, elementCategories, elementsForCategory;
 @synthesize deleteID, unlockedElements, unlockedCategories;
+@synthesize selectedElement;
 
 
 /*
@@ -116,7 +119,7 @@
         //[self presentModalViewController:instanceOfNewView animated:YES];
         //[[self parentViewController] dismissModalViewControllerAnimated:YES];
         
-        NSBundle *mainBundle = [NSBundle mainBundle];
+        /*NSBundle *mainBundle = [NSBundle mainBundle];
         NSString *nibName = [mainBundle pathForResource:@"SpecificCategoryViewController" ofType:@"xib"];
         SpecificCategoryViewController *catViewController = [[SpecificCategoryViewController alloc] initWithNibName:nibName bundle:nil];
         NSArray *elementsToSend = [elementCategories objectForKey:[catList objectAtIndex:indexPath.row]];
@@ -135,8 +138,11 @@
         }
         [catViewController giveUnlockedElementsForCategory:tempUnlockedToGive];
         [catViewController setDelegate:self];
-        [self presentModalViewController:catViewController animated:YES];
+        [self presentModalViewController:catViewController animated:YES];*/
         
+        
+        
+                                    
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -148,6 +154,19 @@
     tempElement.startPosition = pt;
     [boardView bringSubviewToFront:tempElement];
     UITouch *touch = [touches anyObject];
+    if([touch tapCount] == 1){
+        NSArray *allElements = [[NSArray alloc] initWithArray:[initiatedElements allValues]];
+        for(Element *deselect in allElements){
+            if(deselect != tempElement){
+                [deselect setSelected:NO];
+            }
+            else {
+                [deselect setSelected:YES];
+                selectedElement = deselect;
+            }
+        }
+        [allElements release];
+    }
     if([touch tapCount] == 2){
         deleteElement = tempElement;
         deleteID = ID;
@@ -156,7 +175,6 @@
         [UIView setAnimationDidStopSelector:@selector(deleteAnimDidStop:finished:context:)];
         [UIView setAnimationDuration:0.3];
         [tempElement setTransform:CGAffineTransformMakeScale(0.1, 0.1)];
-//        [tempElement setFrame:CGRectMake(tempElement.frame.origin.x, tempElement.frame.origin.y, 0, 0)];
         [UIView commitAnimations];
     }
 }
@@ -177,7 +195,7 @@
     CGRect frame = [tempElement frame];
     frame.origin.x += pt.x - tempElement.startPosition.x;
     frame.origin.y += pt.y - tempElement.startPosition.y;
-    if(frame.origin.x >= 0 && frame.origin.y >= 0 && frame.origin.x <= 256 && frame.origin.y <= 252){
+    if(frame.origin.x >= 0 && frame.origin.y >= 0 && frame.origin.x <= 224 && frame.origin.y <= 252){
         tempElement.inSideBar = FALSE;
         tempElement.sitting = FALSE;
         if(tempElement.currentPlacement != 0){
@@ -197,6 +215,7 @@
         tempElement.inSideBar = TRUE;
     
     if(tempElement.inSideBar == TRUE){
+        NSLog(@"Hi im here");
         //        if(CGRectContainsPoint(CGRectMake(272, 0, 80, 252), CGPointMake(self.frame.origin.x +   16, self.frame.origin.y))){
         if(tempElement.sitting == FALSE){
             if(firstElementComboTaken == NO){
@@ -205,7 +224,7 @@
                 tempElement.currentPlacement = 1;
                 [sideBarElements setObject:tempElement forKey:ID];
                 [UIView setAnimationDuration:0.2];
-                [tempElement setFrame:CGRectMake(280, 20, 64, 64)];
+                [tempElement setFrame:CGRectMake(248, 20, 64, 64)];
                 [UIView commitAnimations];
                 firstElementComboTaken = YES;
             }
@@ -216,7 +235,7 @@
                     tempElement.currentPlacement = 2;
                     [sideBarElements setObject:tempElement forKey:ID];
                     [UIView setAnimationDuration:0.2];
-                    [tempElement setFrame:CGRectMake(280, 124, 64, 64)];
+                    [tempElement setFrame:CGRectMake(248, 124, 64, 64)];
                     [UIView commitAnimations];
                     secondElementComboTaken = YES;
                 }
@@ -352,10 +371,34 @@
     }
 }
 
+- (IBAction)addButtonPushed:(id)sender {
+    ElementSelectionView *chooseElementView = [[ElementSelectionView alloc] 
+                                               initWithNibName:[[NSBundle mainBundle] pathForResource:@"ElementSelectionView" ofType:@"xib"] 
+                                               bundle:nil];
+    [self presentModalViewController:chooseElementView animated:YES];
+}
+
+- (IBAction)infoForElementButtonPushed:(id)sender {
+    [self boardAddElement:@"Water"];
+}
+
+- (IBAction)removeButtonPushed:(id)sender {
+    if(selectedElement != nil){
+        deleteElement = selectedElement;
+        deleteID = selectedElement.elementID;
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(deleteAnimDidStop:finished:context:)];
+        [UIView setAnimationDuration:0.3];
+        [selectedElement setTransform:CGAffineTransformMakeScale(0.1, 0.1)];
+        [UIView commitAnimations];
+    }
+}
+
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 

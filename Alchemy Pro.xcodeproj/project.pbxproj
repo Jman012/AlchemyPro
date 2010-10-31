@@ -18,6 +18,8 @@
 		B950AFBB124EF2C20056309D /* Alchemy_ProAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B950AFBA124EF2C20056309D /* Alchemy_ProAppDelegate.m */; };
 		B950AFBE124EF2C20056309D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = B950AFBC124EF2C20056309D /* MainWindow.xib */; };
 		B950AFC4124EF2C20056309D /* Alchemy_ProViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B950AFC2124EF2C20056309D /* Alchemy_ProViewController.xib */; };
+		B95624AE127D093B00AA8A66 /* ElementSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B95624AC127D093B00AA8A66 /* ElementSelectionView.m */; };
+		B95624AF127D093B00AA8A66 /* ElementSelectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B95624AD127D093B00AA8A66 /* ElementSelectionView.xib */; };
 		B96467A012738B3B000BA1B8 /* Alchemy_ProViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B964679F12738B3A000BA1B8 /* Alchemy_ProViewController.m */; };
 		B96467B31273917C000BA1B8 /* ElementCategories.plist in Resources */ = {isa = PBXBuildFile; fileRef = B96467B21273917C000BA1B8 /* ElementCategories.plist */; };
 		B9650B2B1273894C00AD010C /* ElementComboPList.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9650B2A1273894C00AD010C /* ElementComboPList.plist */; };
@@ -39,12 +41,15 @@
 		B950AFB2124EF2C20056309D /* Alchemy_Pro-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Alchemy_Pro-Info.plist"; sourceTree = "<group>"; };
 		B950AFB3124EF2C20056309D /* Alchemy_Pro_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Alchemy_Pro_Prefix.pch; sourceTree = "<group>"; };
 		B950AFB5124EF2C20056309D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		B950AFB7124EF2C20056309D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B950AFB7124EF2C20056309D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../main.m; sourceTree = "<group>"; };
 		B950AFB9124EF2C20056309D /* Alchemy_ProAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Alchemy_ProAppDelegate.h; sourceTree = "<group>"; };
 		B950AFBA124EF2C20056309D /* Alchemy_ProAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Alchemy_ProAppDelegate.m; sourceTree = "<group>"; };
 		B950AFBD124EF2C20056309D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		B950AFBF124EF2C20056309D /* Alchemy_ProViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Alchemy_ProViewController.h; sourceTree = "<group>"; };
 		B950AFC3124EF2C20056309D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Alchemy_ProViewController.xib; sourceTree = "<group>"; };
+		B95624AB127D093B00AA8A66 /* ElementSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ElementSelectionView.h; path = ../ElementSelectionView.h; sourceTree = "<group>"; };
+		B95624AC127D093B00AA8A66 /* ElementSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ElementSelectionView.m; path = ../ElementSelectionView.m; sourceTree = "<group>"; };
+		B95624AD127D093B00AA8A66 /* ElementSelectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ElementSelectionView.xib; sourceTree = "<group>"; };
 		B964679F12738B3A000BA1B8 /* Alchemy_ProViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alchemy_ProViewController.m; sourceTree = "<group>"; };
 		B96467B21273917C000BA1B8 /* ElementCategories.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ElementCategories.plist; sourceTree = "<group>"; };
 		B9650B2A1273894C00AD010C /* ElementComboPList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ElementComboPList.plist; sourceTree = "<group>"; };
@@ -86,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				B950AFB9124EF2C20056309D /* Alchemy_ProAppDelegate.h */,
+				B950AFB7124EF2C20056309D /* main.m */,
 				B950AFBA124EF2C20056309D /* Alchemy_ProAppDelegate.m */,
 				B950AFBF124EF2C20056309D /* Alchemy_ProViewController.h */,
 				B964679F12738B3A000BA1B8 /* Alchemy_ProViewController.m */,
@@ -93,6 +99,8 @@
 				B99202DC125181BD006E8CC8 /* Element.m */,
 				B9FF40BA1273EA36003F667E /* SpecificCategoryViewController.h */,
 				B9FF40BB1273EA36003F667E /* SpecificCategoryViewController.m */,
+				B95624AB127D093B00AA8A66 /* ElementSelectionView.h */,
+				B95624AC127D093B00AA8A66 /* ElementSelectionView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -101,7 +109,6 @@
 			isa = PBXGroup;
 			children = (
 				B950AFB3124EF2C20056309D /* Alchemy_Pro_Prefix.pch */,
-				B950AFB7124EF2C20056309D /* main.m */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -117,6 +124,7 @@
 				B93F9911125439B50071D211 /* SampleElementIcon2.png */,
 				B93F98DA12542B940071D211 /* ElementBackground2.png */,
 				B950AFB2124EF2C20056309D /* Alchemy_Pro-Info.plist */,
+				B95624AD127D093B00AA8A66 /* ElementSelectionView.xib */,
 				B9FF40BC1273EA36003F667E /* SpecificCategoryViewController.xib */,
 				B950AFB4124EF2C20056309D /* InfoPlist.strings */,
 				B950AFBC124EF2C20056309D /* MainWindow.xib */,
@@ -204,6 +212,7 @@
 				B96467B31273917C000BA1B8 /* ElementCategories.plist in Resources */,
 				B9FF40BE1273EA36003F667E /* SpecificCategoryViewController.xib in Resources */,
 				B9FC9A321276864B006E4CEB /* ElementsForCategory.plist in Resources */,
+				B95624AF127D093B00AA8A66 /* ElementSelectionView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +228,7 @@
 				B99202DD125181BD006E8CC8 /* Element.m in Sources */,
 				B96467A012738B3B000BA1B8 /* Alchemy_ProViewController.m in Sources */,
 				B9FF40BD1273EA36003F667E /* SpecificCategoryViewController.m in Sources */,
+				B95624AE127D093B00AA8A66 /* ElementSelectionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
