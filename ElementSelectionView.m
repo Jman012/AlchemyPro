@@ -11,13 +11,15 @@
 
 @implementation ElementSelectionView
 
-@synthesize titleLabel, toolbar, backAndDoneButton;
+@synthesize titleLabel, toolbar, backAndDoneButton, mainScrollView, pageControl;
+@synthesize unlockedElements, unlockedCategories;
 
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         // Custom initialization
+        [mainScrollView setDelegate:self];
     }
     return self;
 }
@@ -26,6 +28,22 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+    
+    pageControl.numberOfPages = 4;
+    pageControl.currentPage = 0;
+    
+    [mainScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width * pageControl.numberOfPages, mainScrollView.frame.size.height)];
+    for(int page = 0; page <= [pageControl numberOfPages]; page++){
+        UIScrollView *tempScrollView = [[UIScrollView alloc] init];
+        if(page == 1){
+            //Just the four starting Elements
+            
+            [tempScrollView setFrame:CGRectMake(0, 0, mainScrollView.frame.size.width, mainScrollView.frame.size.height)];
+            [tempScrollView setBackgroundColor:[UIColor grayColor]];
+        }
+        [mainScrollView addSubview:tempScrollView];
+        [tempScrollView release];
+    }
     [super viewDidLoad];
 }
 
@@ -37,9 +55,18 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)giveUnlockedElements:(NSArray *)givenElements withCategories:(NSArray *)givenCategories {
+    unlockedElements = givenElements;
+    unlockedCategories = givenCategories;
+    NSLog(@"%@\n%@", unlockedElements, unlockedCategories);
+}
 
 - (IBAction)backDoneButtonPushed:(id)sender {
     [[self parentViewController] dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction)requestPageChange:(id)sender {
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,7 +87,7 @@
     [titleLabel release];
     [toolbar release];
     [backAndDoneButton release];
-    [scrollView release];
+    [mainScrollView release];
     [pageControl release];
     [super dealloc];
 }

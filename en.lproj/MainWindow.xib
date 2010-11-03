@@ -31,11 +31,11 @@
 				<string key="IBUINibName">Alchemy_ProViewController</string>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
-					<int key="IBUIInterfaceOrientation">3</int>
-					<int key="interfaceOrientation">3</int>
+					<int key="IBUIInterfaceOrientation">1</int>
+					<int key="interfaceOrientation">1</int>
 				</object>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-				<bool key="IBUIHorizontal">YES</bool>
+				<bool key="IBUIHorizontal">NO</bool>
 			</object>
 			<object class="IBUIWindow" id="117978783">
 				<nil key="NSNextResponder"/>
@@ -132,7 +132,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">21</int>
+			<int key="maxID">23</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -151,10 +151,19 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">Alchemy_ProViewController</string>
 					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="addButtonPushed:">id</string>
+						<string key="infoForElementButtonPushed:">id</string>
+						<string key="removeButtonPushed:">id</string>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="addButton">UIBarButtonItem</string>
 						<string key="boardView">UIView</string>
+						<string key="catTableView">UITableView</string>
 						<string key="comboButton">UIButton</string>
 						<string key="firstComboImageView">UIImageView</string>
+						<string key="infoForElement">UIBarButtonItem</string>
+						<string key="removeButton">UIBarButtonItem</string>
 						<string key="secondComboImageView">UIImageView</string>
 						<string key="sideBarView">UIView</string>
 					</dictionary>

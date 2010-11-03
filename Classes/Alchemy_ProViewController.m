@@ -375,6 +375,7 @@
     ElementSelectionView *chooseElementView = [[ElementSelectionView alloc] 
                                                initWithNibName:[[NSBundle mainBundle] pathForResource:@"ElementSelectionView" ofType:@"xib"] 
                                                bundle:nil];
+    [chooseElementView giveUnlockedElements:(NSArray *)unlockedElements withCategories:(NSArray *)unlockedCategories];
     [self presentModalViewController:chooseElementView animated:YES];
 }
 

@@ -13,7 +13,7 @@
 @class Alchemy_ProViewController;
 
 @protocol ElementDelegate <NSObject>
-@required
+@optional
 - (void)elementWasTouchedWithName:(NSString *)name andID:(NSString *)ID touch:(NSSet *)touches andEvent:(UIEvent *)event;
 - (void)elementWasMovedWithName:(NSString *)name andID:(NSString *)ID touch:(NSSet *)touches andEvent:(UIEvent *)event;
 @end
