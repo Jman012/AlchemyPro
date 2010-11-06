@@ -90,7 +90,7 @@
 
 
 
-- (void)boardAddElement:(NSString *)element;
+- (Element *)boardAddElement:(NSString *)element;
 - (void)comboButtonPressed:(id)sender;
 - (void)comboAnimDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 - (void)deleteAnimDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;

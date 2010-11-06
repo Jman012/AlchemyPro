@@ -95,7 +95,7 @@
     return cell;
 }
 
-- (void)boardAddElement:(NSString *)elementName {
+- (Element *)boardAddElement:(NSString *)elementName {
     NSTimeInterval epochTime = [[NSDate date] timeIntervalSince1970];
     NSString *ID = [[NSString alloc] initWithFormat:@"%u", epochTime];
     
@@ -107,8 +107,7 @@
     if([element isValid])
         [self.boardView addSubview:element];
     [initiatedElements setObject:element forKey:ID];
-    [element release];
-    element = nil;
+    return element;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -196,48 +195,72 @@
     frame.origin.x += pt.x - tempElement.startPosition.x;
     frame.origin.y += pt.y - tempElement.startPosition.y;
     if(frame.origin.x+32 >= 0 && frame.origin.y+32 >= 0 && frame.origin.x+32 <= boardView.frame.size.width && frame.origin.y+32 <= boardView.frame.size.height){
-        tempElement.inSideBar = FALSE;
-        tempElement.sitting = FALSE;
-        if(tempElement.currentPlacement != 0){
-            if(tempElement.currentPlacement == 1)
-                firstElementComboTaken = NO;
-            if(tempElement.currentPlacement == 2)
-                secondElementComboTaken = NO;
-            tempElement.currentPlacement = 0;
-            if([sideBarElements objectForKey:ID] != nil){
-                NSLog(@"Deleting %@", name);
-                [sideBarElements removeObjectForKey:ID];
-            }
-        }
         tempElement.frame = frame;
+        
     }
-    else
-        tempElement.inSideBar = TRUE;
-    
-    if(tempElement.inSideBar == TRUE){
-        NSLog(@"Hi im here");
-        //        if(CGRectContainsPoint(CGRectMake(272, 0, 80, 252), CGPointMake(self.frame.origin.x +   16, self.frame.origin.y))){
-        if(tempElement.sitting == FALSE){
-            if(firstElementComboTaken == NO){
-                /*[UIView beginAnimations:nil context:NULL];
-                tempElement.sitting = TRUE;
-                tempElement.currentPlacement = 1;
-                [sideBarElements setObject:tempElement forKey:ID];
-                [UIView setAnimationDuration:0.2];
-                [tempElement setFrame:CGRectMake(248, 20, 64, 64)];
-                [UIView commitAnimations];
-                firstElementComboTaken = YES;*/
-            }
-            else{
-                if(secondElementComboTaken == NO){
-                    /*[UIView beginAnimations:nil context:NULL];
-                    tempElement.sitting = TRUE;
-                    tempElement.currentPlacement = 2;
-                    [sideBarElements setObject:tempElement forKey:ID];
-                    [UIView setAnimationDuration:0.2];
-                    [tempElement setFrame:CGRectMake(248, 124, 64, 64)];
-                    [UIView commitAnimations];
-                    secondElementComboTaken = YES;*/
+}
+
+- (void)elementTouchEnded:(NSString *)name andID:(NSString *)ID touch:(NSSet *)touches andEvent:(UIEvent *)event {
+    Element *endedElement = [initiatedElements objectForKey:ID];
+    for(Element *tempElement in [initiatedElements allValues]){
+        if(tempElement == endedElement){
+        
+        }
+        else {
+            float eX = endedElement.frame.origin.x;
+            float eY = endedElement.frame.origin.y;
+            float tX = tempElement.frame.origin.x;
+            float tY = tempElement.frame.origin.y;
+            if(eX+32 > tX && eX+32 < tX+64 && eY+32 > tY && eY+32 < tY+64){
+                NSLog(@"Combine %@ and %@", [endedElement elementName], [tempElement elementName]);
+            
+                NSString *doubleCombined;
+                NSString *doubleFromDict;
+                if([[endedElement elementName] compare:[tempElement elementName]] == -1){
+                    //If they are already in alphebetical order
+                    doubleCombined = [[NSString alloc] initWithFormat:@"%@+%@", [endedElement elementName], [tempElement elementName]];
+                }
+                else if([[endedElement elementName] compare:[tempElement elementName]] == 1){
+                    //If they are not in alphebetical order
+                    doubleCombined = [[NSString alloc] initWithFormat:@"%@+%@", [tempElement elementName], [endedElement elementName]];
+                }
+                else if([[endedElement elementName] compare:[tempElement elementName]] == 0){
+                    //Both are equal
+                    doubleCombined = [[NSString alloc] initWithFormat:@"%@+%@", [endedElement elementName], [tempElement elementName]];
+                }
+                doubleFromDict = [doubleElementCombos objectForKey:doubleCombined];
+                if(doubleFromDict == nil){
+                    //If it's not found :P
+                    //Note: Add sound later
+                    NSLog(@"Wanted Combination not found");
+                }
+                else {
+                    NSLog(@"Yay %@", doubleCombined);
+                    
+                    [initiatedElements removeObjectForKey:endedElement.elementID];
+                    [initiatedElements removeObjectForKey:tempElement.elementID];
+                    
+                    
+                    [endedElement removeFromSuperview];
+                    [tempElement removeFromSuperview];
+                    [endedElement release];
+                    [tempElement release];
+                    
+                    Element *combinedElement = [self boardAddElement:doubleFromDict];
+                    [initiatedElements setObject:combinedElement forKey:[combinedElement elementID]];
+                    [combinedElement setDelegate:self];
+                    
+                    if([unlockedElements containsObject:doubleFromDict] == FALSE){
+                        [unlockedElements addObject:doubleFromDict];
+                        NSLog(@"%@ added to unlocked", doubleFromDict);
+                        NSString *tempCat = [elementsForCategory objectForKey:doubleFromDict];
+                        if([unlockedCategories containsObject:tempCat] == FALSE){
+                            NSLog(@"%@ added to unlocked cats", tempCat);
+                            [unlockedCategories addObject:tempCat];
+                        }
+                    }
+                    
+                    break;
                 }
             }
         }

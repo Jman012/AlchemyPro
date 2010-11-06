@@ -79,6 +79,7 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     CGPoint pt = [[touches anyObject] locationInView:self];
     pt = pt; // Only for not getting a warning
+    [delegate elementTouchEnded:elementName andID:elementID touch:touches andEvent:event];
 }
 
 - (BOOL)isValid {
