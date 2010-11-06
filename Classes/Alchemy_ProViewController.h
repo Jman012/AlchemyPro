@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Element.h"
 #import "SpecificCategoryViewController.h"
+#import "ElementSelectionView.h"
 
 
-@interface Alchemy_ProViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, ElementDelegate, SpecificCategoryViewControllerDelegate>{
+@interface Alchemy_ProViewController : UIViewController 
+<UITableViewDelegate, UITableViewDataSource, ElementDelegate, SpecificCategoryViewControllerDelegate, ElementSelectionViewDelegate>
+{
     NSMutableArray          *catList;
     IBOutlet UIView         *boardView;
     IBOutlet UIButton       *comboButton;

@@ -195,7 +195,7 @@
     CGRect frame = [tempElement frame];
     frame.origin.x += pt.x - tempElement.startPosition.x;
     frame.origin.y += pt.y - tempElement.startPosition.y;
-    if(frame.origin.x >= 0 && frame.origin.y >= 0 && frame.origin.x <= 224 && frame.origin.y <= 252){
+    if(frame.origin.x+32 >= 0 && frame.origin.y+32 >= 0 && frame.origin.x+32 <= boardView.frame.size.width && frame.origin.y+32 <= boardView.frame.size.height){
         tempElement.inSideBar = FALSE;
         tempElement.sitting = FALSE;
         if(tempElement.currentPlacement != 0){
@@ -219,25 +219,25 @@
         //        if(CGRectContainsPoint(CGRectMake(272, 0, 80, 252), CGPointMake(self.frame.origin.x +   16, self.frame.origin.y))){
         if(tempElement.sitting == FALSE){
             if(firstElementComboTaken == NO){
-                [UIView beginAnimations:nil context:NULL];
+                /*[UIView beginAnimations:nil context:NULL];
                 tempElement.sitting = TRUE;
                 tempElement.currentPlacement = 1;
                 [sideBarElements setObject:tempElement forKey:ID];
                 [UIView setAnimationDuration:0.2];
                 [tempElement setFrame:CGRectMake(248, 20, 64, 64)];
                 [UIView commitAnimations];
-                firstElementComboTaken = YES;
+                firstElementComboTaken = YES;*/
             }
             else{
                 if(secondElementComboTaken == NO){
-                    [UIView beginAnimations:nil context:NULL];
+                    /*[UIView beginAnimations:nil context:NULL];
                     tempElement.sitting = TRUE;
                     tempElement.currentPlacement = 2;
                     [sideBarElements setObject:tempElement forKey:ID];
                     [UIView setAnimationDuration:0.2];
                     [tempElement setFrame:CGRectMake(248, 124, 64, 64)];
                     [UIView commitAnimations];
-                    secondElementComboTaken = YES;
+                    secondElementComboTaken = YES;*/
                 }
             }
         }
@@ -376,6 +376,7 @@
                                                initWithNibName:[[NSBundle mainBundle] pathForResource:@"ElementSelectionView" ofType:@"xib"] 
                                                bundle:nil];
     [chooseElementView giveUnlockedElements:(NSArray *)unlockedElements withCategories:(NSArray *)unlockedCategories];
+    [chooseElementView setDelegate:self];
     [self presentModalViewController:chooseElementView animated:YES];
 }
 
@@ -393,6 +394,22 @@
         [UIView setAnimationDuration:0.3];
         [selectedElement setTransform:CGAffineTransformMakeScale(0.1, 0.1)];
         [UIView commitAnimations];
+    }
+}
+
+-(void)acceptElementsToAdd:(NSArray *)toBeAddedElements {
+    for(Element *tempElement in toBeAddedElements){
+        NSLog(@"%@", tempElement.elementName);
+        [self boardAddElement:[tempElement elementName]];
+    }
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [[event allTouches] anyObject];
+    if([touch view] == boardView){
+        for(Element *tempElement in [initiatedElements allValues]){
+            [tempElement setSelected:NO];
+        }
     }
 }
 

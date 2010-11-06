@@ -42,7 +42,6 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 38, 64, 21)];
     [label setBackgroundColor:[UIColor clearColor]];
-//    [label setTextColor:[UIColor whiteColor]];
     [label setTextColor:[UIColor blackColor]];
     [label setAdjustsFontSizeToFitWidth:TRUE];
     [label setTextAlignment:UITextAlignmentCenter];
@@ -75,7 +74,6 @@
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     
     [delegate elementWasMovedWithName:elementName andID:elementID touch:touches andEvent:event];
-//    NSLog(@"%i, %i", (int)self.frame.origin.x, (int)self.frame.origin.y);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -98,6 +96,10 @@
     else if(isSelected == NO){
         selectedOverview.alpha = 0.00;
     }
+}
+
+- (BOOL)isSelected {
+    return (BOOL)selectedOverview.alpha;
 }
 
 - (void)dealloc {

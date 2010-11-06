@@ -49,5 +49,6 @@
 - (id)initWithName:(NSString *)name andID:(NSString *)ID;
 - (void)trash;
 - (void)setSelected:(BOOL)isSelected;
+- (BOOL)isSelected;
 
 @end

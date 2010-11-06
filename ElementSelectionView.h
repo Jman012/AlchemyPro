@@ -9,8 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "Element.h"
 
+@protocol ElementSelectionViewDelegate <NSObject>
+@optional
+- (void)acceptElementsToAdd:(NSArray *)toBeAddedElements;
+@end
+    
 
 @interface ElementSelectionView : UIViewController <UIScrollViewDelegate, ElementDelegate> {
+    id <ElementSelectionViewDelegate> delegate;
+    
     IBOutlet UILabel            *titleLabel;
     IBOutlet UIToolbar          *toolbar;
     IBOutlet UIBarButtonItem    *backAndDoneButton;
@@ -19,6 +26,10 @@
     
     NSArray                     *unlockedElements;
     NSArray                     *unlockedCategories;
+    
+    NSMutableDictionary         *drawnElements;
+    
+    BOOL                        pageChangeByControl;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel          *titleLabel;
@@ -30,8 +41,12 @@
 @property (nonatomic, retain) IBOutlet NSArray          *unlockedElements;
 @property (nonatomic, retain) IBOutlet NSArray          *unlockedCategories;
 
+@property (nonatomic, retain) NSMutableDictionary       *drawnElements;
+
+- (void)setDelegate:(id <ElementSelectionViewDelegate>)dlg;
 - (IBAction)backDoneButtonPushed:(id)sender;
 - (IBAction)requestPageChange:(id)sender;
 - (void)giveUnlockedElements:(NSArray *)givenElements withCategories:(NSArray *)givenCategories;
+- (void)addElement:(NSString *)name toView:(UIScrollView *)view atPoint:(CGPoint)point;
 
 @end
