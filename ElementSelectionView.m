@@ -11,8 +11,8 @@
 
 @implementation ElementSelectionView
 
-@synthesize titleLabel, toolbar, backAndDoneButton, mainScrollView, pageControl;
-@synthesize unlockedElements, unlockedCategories, drawnElements;
+@synthesize titleLabel, toolbar, backAndDoneButton, mainScrollView, pageControl, selectButton;
+@synthesize unlockedElements, unlockedCategories, drawnElements, unlockedEverything;
 
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -37,7 +37,7 @@
     drawnElements = [[NSMutableDictionary alloc] init];
     [mainScrollView setDelegate:self];
 
-    pageControl.numberOfPages = 4;
+    pageControl.numberOfPages = [unlockedCategories count] + 1;
     pageControl.currentPage = 0;
     
     [mainScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width * pageControl.numberOfPages, mainScrollView.frame.size.height)];
@@ -53,6 +53,30 @@
             [self addElement:@"Fire" toView:tempScrollView atPoint:CGPointMake(tempScrollView.frame.size.width * 0.75 - 32, tempScrollView.frame.size.height * 0.25 - 32)];
             [self addElement:@"Air" toView:tempScrollView atPoint:CGPointMake(tempScrollView.frame.size.width * 0.25 - 32, tempScrollView.frame.size.height * 0.75 - 32)];
             [self addElement:@"Earth" toView:tempScrollView atPoint:CGPointMake(tempScrollView.frame.size.width * 0.75 - 32, tempScrollView.frame.size.height * 0.75 - 32)];
+        }
+        else if(page > 0){
+            NSString *category = [unlockedCategories objectAtIndex:page - 2];
+            [tempScrollView setFrame:CGRectMake(mainScrollView.frame.size.width * (page - 1), 0, mainScrollView.frame.size.width, mainScrollView.frame.size.height)];
+            [tempScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width, 500)];
+            int rowNum = 1;
+            int colNum = 1;
+            for(NSString *tempName in [unlockedEverything objectForKey:category]){
+                if(colNum > 4){
+                    colNum = 1;
+                }
+                
+                NSLog(@"Add: %@ at %i,%i", tempName, colNum, rowNum);
+                [self addElement:tempName toView:tempScrollView atPoint:CGPointMake((colNum - 1) * 80 + 8, (rowNum - 1) * 80 + 16)];
+                if(colNum < 4){
+                    colNum++;
+                }
+                else if(colNum == 4){
+                    colNum++;
+                    rowNum++;
+                }
+                
+            }
+//            [tempScrollView setBackgroundColor:[UIColor redColor]];
         }
         [mainScrollView addSubview:tempScrollView];
         [tempScrollView release];
@@ -108,10 +132,10 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)giveUnlockedElements:(NSArray *)givenElements withCategories:(NSArray *)givenCategories {
-    unlockedElements = givenElements;
-    unlockedCategories = givenCategories;
-    NSLog(@"%@\n%@", unlockedElements, unlockedCategories);
+- (void)giveUnlockedElements:(NSMutableDictionary *)givenUnlocked andCats:(NSArray *)givenCats {
+    unlockedEverything = givenUnlocked;
+    unlockedCategories = givenCats;
+    NSLog(@"Given:%@\n%@", unlockedEverything, unlockedCategories);
 }
 
 - (IBAction)backDoneButtonPushed:(id)sender {
@@ -153,6 +177,27 @@
     CGFloat pageWidth = scrollView.frame.size.width;
     int page = ((scrollView.contentOffset.x - pageWidth / 2) /  pageWidth) + 1;
     pageControl.currentPage = page;
+    if(page == 0){
+        titleLabel.text = @"Starter";
+    }
+    else {
+        titleLabel.text = [unlockedCategories objectAtIndex:page-1];
+    }
+}
+
+- (IBAction)selectAllPushed:(id)sender {
+    NSLog(@"Pushed\n%@", drawnElements);
+    if([[selectButton title] isEqualToString:@"Select All"] == 1){
+        for(Element *tempElement in drawnElements){
+            [tempElement setSelected:YES];
+            NSLog(@"%@\n%@", [tempElement elementName], [tempElement isSelected]);
+        }
+    }
+    else if([[selectButton title] isEqualToString:@"De-Select All"] == 1){
+        for(Element *tempElement in drawnElements){
+            [tempElement setSelected:NO];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -170,11 +215,14 @@
 
 
 - (void)dealloc {
+    [unlockedCategories release];
+    [unlockedEverything release];
     [titleLabel release];
     [toolbar release];
     [backAndDoneButton release];
     [mainScrollView release];
     [pageControl release];
+    [selectButton release];
     [super dealloc];
 }
 

@@ -24,7 +24,6 @@
 		B9650B2B1273894C00AD010C /* ElementComboPList.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9650B2A1273894C00AD010C /* ElementComboPList.plist */; };
 		B99202DD125181BD006E8CC8 /* Element.m in Sources */ = {isa = PBXBuildFile; fileRef = B99202DC125181BD006E8CC8 /* Element.m */; };
 		B9FC9A321276864B006E4CEB /* ElementsForCategory.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9FC9A311276864B006E4CEB /* ElementsForCategory.plist */; };
-		B9FF40BD1273EA36003F667E /* SpecificCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FF40BB1273EA36003F667E /* SpecificCategoryViewController.m */; };
 		B9FF40BE1273EA36003F667E /* SpecificCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9FF40BC1273EA36003F667E /* SpecificCategoryViewController.xib */; };
 /* End PBXBuildFile section */
 
@@ -53,8 +52,6 @@
 		B99202DB125181BD006E8CC8 /* Element.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Element.h; sourceTree = "<group>"; };
 		B99202DC125181BD006E8CC8 /* Element.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Element.m; sourceTree = "<group>"; };
 		B9FC9A311276864B006E4CEB /* ElementsForCategory.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ElementsForCategory.plist; sourceTree = "<group>"; };
-		B9FF40BA1273EA36003F667E /* SpecificCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecificCategoryViewController.h; sourceTree = "<group>"; };
-		B9FF40BB1273EA36003F667E /* SpecificCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecificCategoryViewController.m; sourceTree = "<group>"; };
 		B9FF40BC1273EA36003F667E /* SpecificCategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SpecificCategoryViewController.xib; path = Classes/SpecificCategoryViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,8 +90,6 @@
 				B964679F12738B3A000BA1B8 /* Alchemy_ProViewController.m */,
 				B99202DB125181BD006E8CC8 /* Element.h */,
 				B99202DC125181BD006E8CC8 /* Element.m */,
-				B9FF40BA1273EA36003F667E /* SpecificCategoryViewController.h */,
-				B9FF40BB1273EA36003F667E /* SpecificCategoryViewController.m */,
 				B95624AB127D093B00AA8A66 /* ElementSelectionView.h */,
 				B95624AC127D093B00AA8A66 /* ElementSelectionView.m */,
 			);
@@ -219,7 +214,6 @@
 				B950AFBB124EF2C20056309D /* Alchemy_ProAppDelegate.m in Sources */,
 				B99202DD125181BD006E8CC8 /* Element.m in Sources */,
 				B96467A012738B3B000BA1B8 /* Alchemy_ProViewController.m in Sources */,
-				B9FF40BD1273EA36003F667E /* SpecificCategoryViewController.m in Sources */,
 				B95624AE127D093B00AA8A66 /* ElementSelectionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

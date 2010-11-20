@@ -23,9 +23,11 @@
     IBOutlet UIBarButtonItem    *backAndDoneButton;
     IBOutlet UIScrollView       *mainScrollView;
     IBOutlet UIPageControl      *pageControl;
+    IBOutlet UIBarButtonItem    *selectButton;
     
     NSArray                     *unlockedElements;
     NSArray                     *unlockedCategories;
+    NSMutableDictionary         *unlockedEverything;
     
     NSMutableDictionary         *drawnElements;
     
@@ -37,16 +39,19 @@
 @property (nonatomic, retain) IBOutlet UIBarButtonItem  *backAndDoneButton;
 @property (nonatomic, retain) IBOutlet UIScrollView     *mainScrollView;
 @property (nonatomic, retain) IBOutlet UIPageControl    *pageControl;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem  *selectButton;
 
-@property (nonatomic, retain) IBOutlet NSArray          *unlockedElements;
-@property (nonatomic, retain) IBOutlet NSArray          *unlockedCategories;
+@property (nonatomic, retain) NSArray                   *unlockedElements;
+@property (nonatomic, retain) NSArray                   *unlockedCategories;
+@property (nonatomic, retain) NSMutableDictionary       *unlockedEverything;
 
 @property (nonatomic, retain) NSMutableDictionary       *drawnElements;
 
 - (void)setDelegate:(id <ElementSelectionViewDelegate>)dlg;
 - (IBAction)backDoneButtonPushed:(id)sender;
 - (IBAction)requestPageChange:(id)sender;
-- (void)giveUnlockedElements:(NSArray *)givenElements withCategories:(NSArray *)givenCategories;
+- (IBAction)selectAllPushed:(id)sender;
+- (void)giveUnlockedElements:(NSMutableDictionary *)givenUnlocked andCats:(NSArray *)givenCats;
 - (void)addElement:(NSString *)name toView:(UIScrollView *)view atPoint:(CGPoint)point;
 
 @end

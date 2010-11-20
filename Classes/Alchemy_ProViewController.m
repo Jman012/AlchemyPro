@@ -7,7 +7,6 @@
 //
 
 #import "Alchemy_ProViewController.h"
-#import "SpecificCategoryViewController.h"
 #import "ElementSelectionView.h"
 
 @implementation Alchemy_ProViewController
@@ -20,7 +19,7 @@
 @synthesize firstElementComboTaken, secondElementComboTaken;
 @synthesize initiatedElements, sideBarElements;
 @synthesize doubleElementCombos, elementCategories, elementsForCategory;
-@synthesize deleteID, unlockedElements, unlockedCategories;
+@synthesize deleteID, unlockedElements, unlockedCategories, allUnlocked;
 @synthesize selectedElement;
 
 
@@ -63,6 +62,7 @@
     catList = [settings objectForKey:@"AlchemyCategoryList"];
     unlockedElements = [settings objectForKey:@"AlchemyUnlockedElements"];
     unlockedCategories = [settings objectForKey:@"AlchemyUnlockedCategories"];
+    allUnlocked = [settings objectForKey:@"AlchemyProAllUnlocked"];
     if(catList == nil){
         NSLog(@"Is nil");
         catList = [[NSMutableArray alloc] initWithObjects:@"Water", @"Fire", @"Air", @"Earth", nil];
@@ -73,26 +73,14 @@
     if(unlockedCategories == nil){
         unlockedCategories = [[NSMutableArray alloc] initWithArray:nil];
     }
+    if(allUnlocked == nil){
+        allUnlocked = [[NSMutableDictionary alloc] init];
+    }
     [settings release];
     firstElementComboTaken = NO;
     secondElementComboTaken = NO;
     [comboButton addTarget:self action:@selector(comboButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [super viewDidLoad];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [catList count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Alchemy"];
-    
-    if(cell == nil){
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewStylePlain reuseIdentifier:@"Alchemy"] autorelease];
-    }
-    
-    cell.textLabel.text = [catList objectAtIndex:indexPath.row];
-    return cell;
 }
 
 - (Element *)boardAddElement:(NSString *)elementName {
@@ -109,43 +97,6 @@
     [initiatedElements setObject:element forKey:ID];
     return element;
 }
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row < 4){
-        [self boardAddElement:[catList objectAtIndex:indexPath.row]];
-    }
-    else if(indexPath.row >= 4){
-        //[self presentModalViewController:instanceOfNewView animated:YES];
-        //[[self parentViewController] dismissModalViewControllerAnimated:YES];
-        
-        /*NSBundle *mainBundle = [NSBundle mainBundle];
-        NSString *nibName = [mainBundle pathForResource:@"SpecificCategoryViewController" ofType:@"xib"];
-        SpecificCategoryViewController *catViewController = [[SpecificCategoryViewController alloc] initWithNibName:nibName bundle:nil];
-        NSArray *elementsToSend = [elementCategories objectForKey:[catList objectAtIndex:indexPath.row]];
-        [catViewController giveElementsInCategory:elementsToSend];
-        [catViewController giveCategory:[catList objectAtIndex:indexPath.row]];
-        NSMutableArray *tempUnlockedToGive = [[NSMutableArray alloc] initWithArray:[elementCategories objectForKey:[catList objectAtIndex:indexPath.row]]];
-        NSMutableArray *temptemp = [tempUnlockedToGive copy];
-        for(NSString *tempString in temptemp){
-            if([unlockedElements containsObject:tempString] == TRUE){
-                NSLog(@"Keep object: %@", tempString);
-            }
-            else {
-                NSLog(@"Remove un-unlocked object :%@", tempString);
-                [tempUnlockedToGive removeObject:tempString];
-            }
-        }
-        [catViewController giveUnlockedElementsForCategory:tempUnlockedToGive];
-        [catViewController setDelegate:self];
-        [self presentModalViewController:catViewController animated:YES];*/
-        
-        
-        
-                                    
-    }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
 
 - (void)elementWasTouchedWithName:(NSString *)name andID:(NSString *)ID touch:(NSSet *)touches andEvent:(UIEvent *)event {
     Element *tempElement = [initiatedElements objectForKey:ID];
@@ -212,7 +163,6 @@
             float tX = tempElement.frame.origin.x;
             float tY = tempElement.frame.origin.y;
             if(eX+32 > tX && eX+32 < tX+64 && eY+32 > tY && eY+32 < tY+64){
-                NSLog(@"Combine %@ and %@", [endedElement elementName], [tempElement elementName]);
             
                 NSString *doubleCombined;
                 NSString *doubleFromDict;
@@ -234,9 +184,7 @@
                     //Note: Add sound later
                     NSLog(@"Wanted Combination not found");
                 }
-                else {
-                    NSLog(@"Yay %@", doubleCombined);
-                    
+                else {                    
                     [initiatedElements removeObjectForKey:endedElement.elementID];
                     [initiatedElements removeObjectForKey:tempElement.elementID];
                     
@@ -258,6 +206,14 @@
                             NSLog(@"%@ added to unlocked cats", tempCat);
                             [unlockedCategories addObject:tempCat];
                         }
+                        NSMutableArray *tempArray = [allUnlocked objectForKey:tempCat];
+                        if(tempArray == nil){
+                            tempArray = [[NSMutableArray alloc] init];
+                        }
+                        if([tempArray containsObject:combinedElement] == FALSE){
+                            [tempArray addObject:[combinedElement elementName]];
+                        }
+                        [allUnlocked setObject:tempArray forKey:tempCat];
                     }
                     
                     break;
@@ -267,138 +223,11 @@
     }
 }
 
-- (void)comboButtonPressed:(id)sender {
-    NSLog(@"Button touched");
-    Element *markerElement = [[Element alloc] init];
-    NSMutableArray *comboElements = [[NSArray alloc] initWithArray:[sideBarElements objectsForKeys:[sideBarElements allKeys] notFoundMarker:markerElement]];
-    
-    [markerElement release];
-    if([comboElements count] == 0){
-        NSLog(@"No Elements in SideBar");
-        UIAlertView *noElementAlert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You have no Elements to combine!"
-                                                                delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [noElementAlert show];
-        [noElementAlert release];
-    }
-    else if([comboElements count] == 1){
-        NSLog(@"Only a single Element!");
-        UIAlertView *oneElementAlert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You have only one Element to combine!"
-                                                                 delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [oneElementAlert show];
-        [oneElementAlert release];
-    }
-    else if([comboElements count] == 2){
-        
-        NSLog(@"Two Elements, Searching for Possible Matches");
-        
-        firstElement = [comboElements objectAtIndex:0];
-        secondElement = [comboElements objectAtIndex:1];
-        NSLog(@"Elements: %@ and %@", firstElement.elementName, secondElement.elementName);
-        
-        NSString *doubleCombined;
-        NSString *doubleFromDict;
-        if([[firstElement elementName] compare:[secondElement elementName]] == -1){
-            //If they are already in alphebetical order
-            doubleCombined = [[NSString alloc] initWithFormat:@"%@+%@", [firstElement elementName], [secondElement elementName]];
-        }
-        else if([[firstElement elementName] compare:[secondElement elementName]] == 1){
-            //If they are not in alphebetical order
-            doubleCombined = [[NSString alloc] initWithFormat:@"%@+%@", [secondElement elementName], [firstElement elementName]];
-        }
-        else if([[firstElement elementName] compare:[secondElement elementName]] == 0){
-            //Both are equal
-            doubleCombined = [[NSString alloc] initWithFormat:@"%@+%@", [firstElement elementName], [secondElement elementName]];
-        }
-        doubleFromDict = [doubleElementCombos objectForKey:doubleCombined];
-        [doubleCombined release];
-        if(doubleFromDict == nil){
-            //If it's not found :P
-            //Note: Add sound later
-            NSLog(@"Wanted Combination not found");
-        }
-        
-        else {
-            
-            //Make the desired Element
-            NSTimeInterval epochTime = [[NSDate date] timeIntervalSince1970];
-            NSString *ID = [[NSString alloc] initWithFormat:@"%u", epochTime];
-            NSLog(@"Add: %@, %@", doubleFromDict, ID);
-        
-            tempComboElement = [[Element alloc] initWithName:doubleFromDict andID:ID];
-            tempComboElement.frame = CGRectMake(32, 32, 64, 64);
-            [tempComboElement setDelegate:self];
-            [tempComboElement setElementID:ID];
-
-            [initiatedElements setObject:tempComboElement forKey:ID];
-            
-            [UIView beginAnimations:nil context:NULL];
-            [UIView setAnimationDelegate:self];
-            [UIView setAnimationDidStopSelector:@selector(comboAnimDidStop:finished:context:)];
-            
-            [UIView setAnimationDuration:0.3];
-            [firstElement setFrame:[tempComboElement frame]];
-            [secondElement setFrame:[tempComboElement frame]];
-            [UIView commitAnimations];
-            
-            [tempComboElement release];
-        
-            firstElementComboTaken = NO;
-            secondElementComboTaken = NO;
-            
-            if([unlockedElements containsObject:doubleFromDict] == FALSE){
-                [unlockedElements addObject:doubleFromDict];
-                NSLog(@"%@ added to unlocked", doubleFromDict);
-                NSString *tempCat = [elementsForCategory objectForKey:doubleFromDict];
-                if([unlockedCategories containsObject:tempCat] == FALSE){
-                    NSLog(@"%@ added to unlocked cats", tempCat);
-                    [catTableView beginUpdates];
-                    [unlockedCategories addObject:tempCat];
-                    [catList addObject:tempCat];
-//                    [catTableView reloadData];
-                    [catTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[catList count]-1 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
-                    
-                    [catTableView endUpdates];
-                }
-            }
-            else {
-                //Soudns or whatever for if already unlocked
-            }
-        }
-    }
-    else if([comboElements count] > 2){
-        NSLog(@"More than 3 elements? Problem!");
-    }
-    
-}
-
-- (void)comboAnimDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
-    
-    if([tempComboElement isValid])
-        [self.boardView addSubview:tempComboElement];
-    
-    [sideBarElements removeObjectForKey:firstElement.elementID];
-    [initiatedElements removeObjectForKey:firstElement.elementID];
-    [firstElement removeFromSuperview];
-    [firstElement release];
-    
-    [sideBarElements removeObjectForKey:secondElement.elementID];
-    [initiatedElements removeObjectForKey:secondElement.elementID];
-    [secondElement removeFromSuperview];
-    [secondElement release];
-}
-
-- (void)passChosenElement:(NSString *)chosenElementName {
-    if(chosenElementName != nil){
-        chosenElement = chosenElementName;
-        [self boardAddElement:chosenElement];
-    }
-}
-
 - (IBAction)addButtonPushed:(id)sender {
     ElementSelectionView *chooseElementView = [[ElementSelectionView alloc] 
                                                initWithNibName:[[NSBundle mainBundle] pathForResource:@"ElementSelectionView" ofType:@"xib"] 
                                                bundle:nil];
-    [chooseElementView giveUnlockedElements:(NSArray *)unlockedElements withCategories:(NSArray *)unlockedCategories];
+    [chooseElementView giveUnlockedElements:allUnlocked andCats:unlockedCategories];
     [chooseElementView setDelegate:self];
     [self presentModalViewController:chooseElementView animated:YES];
 }
@@ -484,6 +313,7 @@
     
     [unlockedElements release];
     [unlockedCategories release];
+    [allUnlocked release];
     [super dealloc];
 }
 

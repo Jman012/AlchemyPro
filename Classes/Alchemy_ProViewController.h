@@ -8,12 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "Element.h"
-#import "SpecificCategoryViewController.h"
 #import "ElementSelectionView.h"
 
 
-@interface Alchemy_ProViewController : UIViewController 
-<UITableViewDelegate, UITableViewDataSource, ElementDelegate, SpecificCategoryViewControllerDelegate, ElementSelectionViewDelegate>
+@interface Alchemy_ProViewController : UIViewController <ElementDelegate, ElementSelectionViewDelegate>
 {
     NSMutableArray          *catList;
     IBOutlet UIView         *boardView;
@@ -49,6 +47,7 @@
     
     NSMutableArray          *unlockedElements;
     NSMutableArray          *unlockedCategories;
+    NSMutableDictionary     *allUnlocked;
     
     Element                 *selectedElement;
 }
@@ -85,14 +84,13 @@
 
 @property (nonatomic, retain) NSMutableArray        *unlockedElements;
 @property (nonatomic, retain) NSMutableArray        *unlockedCategories;
+@property (nonatomic, retain) NSMutableDictionary   *allUnlocked;
 
 @property (nonatomic, retain) Element               *selectedElement;
 
 
 
 - (Element *)boardAddElement:(NSString *)element;
-- (void)comboButtonPressed:(id)sender;
-- (void)comboAnimDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 - (void)deleteAnimDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 - (IBAction)addButtonPushed:(id)sender;
 - (IBAction)infoForElementButtonPushed:(id)sender;

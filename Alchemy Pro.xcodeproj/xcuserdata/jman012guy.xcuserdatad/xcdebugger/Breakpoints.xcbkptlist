@@ -8,11 +8,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/../ElementSelectionView.m"
-         timestampString = "310702838.310097"
+         timestampString = "311314201.944075"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "132"
-         endingLineNumber = "132"
+         startingLineNumber = "155"
+         endingLineNumber = "155"
          landmarkName = "-backDoneButtonPushed:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -22,11 +22,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/../ElementSelectionView.m"
-         timestampString = "310624285.008921"
+         timestampString = "311314201.944075"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "77"
-         endingLineNumber = "77"
+         startingLineNumber = "100"
+         endingLineNumber = "100"
          landmarkName = "-elementWasTouchedWithName:andID:touch:andEvent:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -36,11 +36,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/../ElementSelectionView.m"
-         timestampString = "310624285.458662"
+         timestampString = "311314201.944075"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "78"
-         endingLineNumber = "78"
+         startingLineNumber = "101"
+         endingLineNumber = "101"
          landmarkName = "-elementWasTouchedWithName:andID:touch:andEvent:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -50,49 +50,7 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/../ElementSelectionView.m"
-         timestampString = "310624285.931214"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "79"
-         endingLineNumber = "79"
-         landmarkName = "-elementWasTouchedWithName:andID:touch:andEvent:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "Classes/../ElementSelectionView.m"
-         timestampString = "310625299.0632"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "83"
-         endingLineNumber = "83"
-         landmarkName = "-elementWasTouchedWithName:andID:touch:andEvent:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "Classes/../ElementSelectionView.m"
-         timestampString = "310626880.292001"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "93"
-         endingLineNumber = "93"
-         landmarkName = "-elementWasTouchedWithName:andID:touch:andEvent:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "Classes/../ElementSelectionView.m"
-         timestampString = "310702838.310097"
+         timestampString = "311314201.944075"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "102"
@@ -106,11 +64,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/../ElementSelectionView.m"
-         timestampString = "310626880.292001"
+         timestampString = "311314201.944075"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "93"
-         endingLineNumber = "93"
+         startingLineNumber = "106"
+         endingLineNumber = "106"
          landmarkName = "-elementWasTouchedWithName:andID:touch:andEvent:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -120,11 +78,53 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/../ElementSelectionView.m"
-         timestampString = "310625299.0632"
+         timestampString = "311314201.944075"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "83"
-         endingLineNumber = "83"
+         startingLineNumber = "116"
+         endingLineNumber = "116"
+         landmarkName = "-elementWasTouchedWithName:andID:touch:andEvent:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Classes/../ElementSelectionView.m"
+         timestampString = "311314201.944075"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "125"
+         endingLineNumber = "125"
+         landmarkName = "-elementWasTouchedWithName:andID:touch:andEvent:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Classes/../ElementSelectionView.m"
+         timestampString = "311314201.944075"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "116"
+         endingLineNumber = "116"
+         landmarkName = "-elementWasTouchedWithName:andID:touch:andEvent:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Classes/../ElementSelectionView.m"
+         timestampString = "311314201.944075"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "106"
+         endingLineNumber = "106"
          landmarkName = "-elementWasTouchedWithName:andID:touch:andEvent:"
          landmarkType = "5">
       </FileBreakpoint>
