@@ -188,13 +188,14 @@
                     [initiatedElements removeObjectForKey:endedElement.elementID];
                     [initiatedElements removeObjectForKey:tempElement.elementID];
                     
-                    
+                    CGRect combinedPoint = tempElement.frame;
                     [endedElement removeFromSuperview];
                     [tempElement removeFromSuperview];
                     [endedElement release];
                     [tempElement release];
                     
                     Element *combinedElement = [self boardAddElement:doubleFromDict];
+                    combinedElement.frame = combinedPoint;
                     [initiatedElements setObject:combinedElement forKey:[combinedElement elementID]];
                     [combinedElement setDelegate:self];
                     
