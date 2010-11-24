@@ -19,12 +19,7 @@
 - (void)elementTouchEnded:(NSString *)name andID:(NSString *)ID touch:(NSSet *)touches andEvent:(UIEvent *)event;
 @end
 
-@interface Element : UIView {
-    BOOL                        sitting;
-    BOOL                        inSidebar;
-    
-    int                         currentPlacement;
-    
+@interface Element : UIView {    
 	NSString                    *elementName;
 	NSString                    *elementID;
 	id                          <ElementDelegate> delegate;
@@ -37,9 +32,6 @@
 @property (nonatomic, retain) NSString                      *elementID;
 @property (nonatomic, retain) id                            <ElementDelegate> delegate;
 @property (nonatomic)         CGPoint                       startPosition;
-@property (nonatomic)         BOOL                          sitting;
-@property (nonatomic)         BOOL                          inSideBar;
-@property (nonatomic)         int                           currentPlacement;
 @property (nonatomic, retain) UIImageView                   *selectedOverview;
 
 

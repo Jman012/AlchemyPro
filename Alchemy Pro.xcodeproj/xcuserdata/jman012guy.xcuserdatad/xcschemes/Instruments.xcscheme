@@ -1,26 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Scheme>
+<Scheme
+   version = "1.1">
    <BuildAction
-      buildConfiguration = "Debug">
+      parallelizeBuildables = "NO"
+      buildImplicitDependencies = "YES">
    </BuildAction>
    <TestAction
-      failureAction = "0">
+      buildConfiguration = "Debug">
+      <Testables>
+      </Testables>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = ""
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.GDB"
       loadSymbolsForSpecifiedModules = "NO"
-      selectedAnalysisToolIdentifier = "/Xcode4/Applications/Instruments.app/Contents/Resources/templates/Leaks.tracetemplate"
-      analysisToolsServiceExtensionIdentifier = "Xcode.InstrumentsService"
       displayScaleIsEnabled = "NO"
-      displayScale = "1.00">
+      displayScale = "1.00"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Debug">
       <BuildableProductRunnable>
-         <BuildableProductReference
-            BuildableProductIdentifier = "Alchemy Pro.app">
-         </BuildableProductReference>
-/>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B950AFA8124EF2C20056309D"
+            ReferencedContainer = "container:Alchemy Pro.xcodeproj">
+         </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
+   <ProfileAction
+      displayScaleIsEnabled = "NO"
+      displayScale = "1.00"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Debug">
+   </ProfileAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      customArchiveName = "Instruments">
+   </ArchiveAction>
 </Scheme>

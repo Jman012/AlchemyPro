@@ -12,13 +12,11 @@
 @implementation Alchemy_ProViewController
 
 
-@synthesize catList, boardView, comboButton;
-@synthesize sideBarView, firstComboImageView, secondComboImageView, catTableView;
+@synthesize boardView;
 @synthesize addButton, infoForElement, removeButton;
-@synthesize firstElement, secondElement, tempComboElement, deleteElement;
-@synthesize firstElementComboTaken, secondElementComboTaken;
-@synthesize initiatedElements, sideBarElements;
-@synthesize doubleElementCombos, elementCategories, elementsForCategory;
+@synthesize deleteElement;
+@synthesize initiatedElements;
+@synthesize doubleElementCombos, elementsForCategory;
 @synthesize deleteID, unlockedElements, unlockedCategories, allUnlocked;
 @synthesize selectedElement;
 
@@ -33,40 +31,23 @@
 }
 */
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
-
-
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     initiatedElements = [[NSMutableDictionary alloc] init];
-    sideBarElements = [[NSMutableDictionary alloc] init];
     
     //The setup for the double combinations and repective categories
     NSBundle *myBundle = [NSBundle mainBundle];
     NSString *path = [myBundle pathForResource:@"ElementComboPList" ofType:@"plist"];
     doubleElementCombos = [[NSDictionary alloc] initWithContentsOfFile:path];
-
-    path = [myBundle pathForResource:@"ElementCategories" ofType:@"plist"];
-    elementCategories = [[NSDictionary alloc] initWithContentsOfFile:path];
     
     path = [myBundle pathForResource:@"ElementsForCategory" ofType:@"plist"];
     elementsForCategory = [[NSDictionary alloc] initWithContentsOfFile:path];
     
     //Get a list of already unlocked Elements, not fully implemented yet
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
-    catList = [settings objectForKey:@"AlchemyCategoryList"];
     unlockedElements = [settings objectForKey:@"AlchemyUnlockedElements"];
     unlockedCategories = [settings objectForKey:@"AlchemyUnlockedCategories"];
     allUnlocked = [settings objectForKey:@"AlchemyProAllUnlocked"];
-    if(catList == nil){
-        NSLog(@"Is nil");
-        catList = [[NSMutableArray alloc] initWithObjects:@"Water", @"Fire", @"Air", @"Earth", nil];
-    }
     if(unlockedElements == nil){
         unlockedElements = [[NSMutableArray alloc] initWithObjects:@"Water", @"Fire", @"Air", @"Earth", nil];
     }
@@ -77,25 +58,27 @@
         allUnlocked = [[NSMutableDictionary alloc] init];
     }
     [settings release];
-    firstElementComboTaken = NO;
-    secondElementComboTaken = NO;
-    [comboButton addTarget:self action:@selector(comboButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [super viewDidLoad];
 }
 
 - (Element *)boardAddElement:(NSString *)elementName {
+    return [self boardAddElement:elementName atPoint:CGPointMake(32, 32)];
+}
+
+- (Element *)boardAddElement:(NSString *)elementName atPoint:(CGPoint)pt {
     NSTimeInterval epochTime = [[NSDate date] timeIntervalSince1970];
     NSString *ID = [[NSString alloc] initWithFormat:@"%u", epochTime];
     
     NSLog(@"Add: %@, %@", elementName, ID);
     
     Element *element = [[Element alloc] initWithName:elementName andID:ID];
-    element.frame = CGRectMake(32, 32, 64, 64);
+    element.frame = CGRectMake(pt.x, pt.y, 64, 64);
     [element setDelegate:self];
     if([element isValid])
         [self.boardView addSubview:element];
     [initiatedElements setObject:element forKey:ID];
     return element;
+
 }
 
 - (void)elementWasTouchedWithName:(NSString *)name andID:(NSString *)ID touch:(NSSet *)touches andEvent:(UIEvent *)event {
@@ -130,9 +113,6 @@
 }
 
 - (void)deleteAnimDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
-    if([deleteElement sitting] == TRUE){
-        [sideBarElements removeObjectForKey:deleteID];
-    }
     [initiatedElements removeObjectForKey:deleteID];
     [deleteElement removeFromSuperview];
 }
@@ -145,10 +125,17 @@
     CGRect frame = [tempElement frame];
     frame.origin.x += pt.x - tempElement.startPosition.x;
     frame.origin.y += pt.y - tempElement.startPosition.y;
-    if(frame.origin.x+32 >= 0 && frame.origin.y+32 >= 0 && frame.origin.x+32 <= boardView.frame.size.width && frame.origin.y+32 <= boardView.frame.size.height){
-        tempElement.frame = frame;
-        
+    if(frame.origin.x >= 0 && frame.origin.x+64 <= boardView.frame.size.width){
+        tempElement.frame = CGRectMake(frame.origin.x, tempElement.frame.origin.y, tempElement.frame.size.width, tempElement.frame.size.height);
     }
+    
+    if(frame.origin.y >= 0 && frame.origin.y+64 <= boardView.frame.size.height){
+        tempElement.frame = CGRectMake(tempElement.frame.origin.x, frame.origin.y, tempElement.frame.size.width, tempElement.frame.size.height);
+    }
+//    if(frame.origin.x >= 0 && frame.origin.y >= 0 && frame.origin.x+64 <= boardView.frame.size.width && frame.origin.y+64 <= boardView.frame.size.height){
+//        tempElement.frame = frame;
+//        
+//    }
 }
 
 - (void)elementTouchEnded:(NSString *)name andID:(NSString *)ID touch:(NSSet *)touches andEvent:(UIEvent *)event {
@@ -263,6 +250,13 @@
         for(Element *tempElement in [initiatedElements allValues]){
             [tempElement setSelected:NO];
         }
+        if([touch tapCount] == 2){
+            CGPoint pt = [touch locationInView:boardView];
+            [self boardAddElement:@"Water" atPoint:CGPointMake(pt.x - 32 , pt.y - 96)];
+            [self boardAddElement:@"Fire" atPoint:CGPointMake(pt.x - 32 , pt.y + 32)];
+            [self boardAddElement:@"Air" atPoint:CGPointMake(pt.x - 96 , pt.y - 32)];
+            [self boardAddElement:@"Earth" atPoint:CGPointMake(pt.x + 32 , pt.y - 32)];
+        }
     }
 }
 
@@ -288,33 +282,26 @@
 
 
 - (void)dealloc {
-    [catList release];
     [boardView release];
-    [comboButton release];
-    [sideBarView release];
-    [firstComboImageView release];
-    [secondComboImageView release];
-    [catTableView release];
     
-    [firstElement release];
-    [secondElement release];
-    [tempComboElement release];
+    [addButton release];
+    [infoForElement release];
+    [removeButton release];
+    
     [deleteElement release];
     
     [deleteID release];
     
     [initiatedElements release];
-    [sideBarElements release];
     
     [doubleElementCombos release];
-    [elementCategories release];
     [elementsForCategory release];
-    
-    [chosenElement release];
     
     [unlockedElements release];
     [unlockedCategories release];
     [allUnlocked release];
+    
+    [selectedElement release];
     [super dealloc];
 }
 

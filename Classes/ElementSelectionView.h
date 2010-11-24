@@ -25,7 +25,6 @@
     IBOutlet UIPageControl      *pageControl;
     IBOutlet UIBarButtonItem    *selectButton;
     
-    NSArray                     *unlockedElements;
     NSArray                     *unlockedCategories;
     NSMutableDictionary         *unlockedEverything;
     
@@ -41,7 +40,6 @@
 @property (nonatomic, retain) IBOutlet UIPageControl    *pageControl;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem  *selectButton;
 
-@property (nonatomic, retain) NSArray                   *unlockedElements;
 @property (nonatomic, retain) NSArray                   *unlockedCategories;
 @property (nonatomic, retain) NSMutableDictionary       *unlockedEverything;
 

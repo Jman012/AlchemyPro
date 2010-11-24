@@ -12,7 +12,7 @@
 @implementation ElementSelectionView
 
 @synthesize titleLabel, toolbar, backAndDoneButton, mainScrollView, pageControl, selectButton;
-@synthesize unlockedElements, unlockedCategories, drawnElements, unlockedEverything;
+@synthesize unlockedCategories, drawnElements, unlockedEverything;
 
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -57,7 +57,7 @@
         else if(page > 0){
             NSString *category = [unlockedCategories objectAtIndex:page - 2];
             [tempScrollView setFrame:CGRectMake(mainScrollView.frame.size.width * (page - 1), 0, mainScrollView.frame.size.width, mainScrollView.frame.size.height)];
-            [tempScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width, 500)];
+            [tempScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width, mainScrollView.frame.size.height * floor([[unlockedEverything objectForKey:category] count] / 16))];
             int rowNum = 1;
             int colNum = 1;
             for(NSString *tempName in [unlockedEverything objectForKey:category]){

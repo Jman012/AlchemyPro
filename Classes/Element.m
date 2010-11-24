@@ -6,7 +6,7 @@
 
 
 @synthesize elementName, elementID, delegate, selectedOverview;
-@synthesize startPosition, sitting, inSideBar, currentPlacement;
+@synthesize startPosition;
 
 - (void)setDelegate:(id <ElementDelegate>)dlg {
 	delegate = dlg;
@@ -23,9 +23,6 @@
     if((self = [super init])){
         self.userInteractionEnabled = TRUE;
         [self setBackgroundColor:[UIColor clearColor]];
-        sitting = FALSE;
-        inSidebar = FALSE;
-        currentPlacement = 0;
         [self loadVisualViews];
     }
     return self;
