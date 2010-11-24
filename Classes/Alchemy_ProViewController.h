@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Element.h"
 #import "ElementSelectionView.h"
+#import "SettingsView.h"
 
 
-@interface Alchemy_ProViewController : UIViewController <ElementDelegate, ElementSelectionViewDelegate>
+@interface Alchemy_ProViewController : UIViewController <ElementDelegate, ElementSelectionViewDelegate, SettingsViewDelegate>
 {
     IBOutlet UIView         *boardView;
         
@@ -33,6 +34,8 @@
     NSMutableDictionary     *allUnlocked;
     
     Element                 *selectedElement;
+    
+    NSUserDefaults          *settings;
 }
 
 @property (nonatomic, retain) IBOutlet UIView       *boardView;

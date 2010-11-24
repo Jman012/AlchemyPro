@@ -19,10 +19,6 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         // Custom initialization
-        [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
-        [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
-        [titleLabel setFont:[UIFont boldSystemFontOfSize:22.0]];
-        
         pageChangeByControl = NO;
     }
     return self;

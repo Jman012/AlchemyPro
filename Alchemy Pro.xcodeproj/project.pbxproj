@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B94B70AE129DB578005A1142 /* SettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B94B70AC129DB578005A1142 /* SettingsView.m */; };
 		B950AFAD124EF2C20056309D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B950AFAC124EF2C20056309D /* UIKit.framework */; };
 		B950AFAF124EF2C20056309D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B950AFAE124EF2C20056309D /* Foundation.framework */; };
 		B950AFB1124EF2C20056309D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B950AFB0124EF2C20056309D /* CoreGraphics.framework */; };
@@ -21,11 +22,16 @@
 		B97EA88B129CAC0C00CF355E /* ElementBackground2.png in Resources */ = {isa = PBXBuildFile; fileRef = B97EA888129CAC0C00CF355E /* ElementBackground2.png */; };
 		B97EA88C129CAC0C00CF355E /* PlacementBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B97EA889129CAC0C00CF355E /* PlacementBackground.png */; };
 		B97EA88D129CAC0C00CF355E /* SampleElementIcon2.png in Resources */ = {isa = PBXBuildFile; fileRef = B97EA88A129CAC0C00CF355E /* SampleElementIcon2.png */; };
+		B991261E129CC69D005B2C7C /* OptionsGear.png in Resources */ = {isa = PBXBuildFile; fileRef = B991261D129CC69D005B2C7C /* OptionsGear.png */; };
+		B9912620129CC6C9005B2C7C /* SettingsGear.png in Resources */ = {isa = PBXBuildFile; fileRef = B991261F129CC6C9005B2C7C /* SettingsGear.png */; };
 		B99202DD125181BD006E8CC8 /* Element.m in Sources */ = {isa = PBXBuildFile; fileRef = B99202DC125181BD006E8CC8 /* Element.m */; };
+		B9ED72E0129DB90700EE8464 /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9ED72DF129DB90700EE8464 /* SettingsView.xib */; };
 		B9FC9A321276864B006E4CEB /* ElementsForCategory.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9FC9A311276864B006E4CEB /* ElementsForCategory.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B94B70AB129DB578005A1142 /* SettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsView.h; sourceTree = "<group>"; };
+		B94B70AC129DB578005A1142 /* SettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsView.m; sourceTree = "<group>"; };
 		B950AFA9124EF2C20056309D /* Alchemy Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Alchemy Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B950AFAC124EF2C20056309D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B950AFAE124EF2C20056309D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -47,8 +53,11 @@
 		B97EA889129CAC0C00CF355E /* PlacementBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PlacementBackground.png; path = Images/Normal/PlacementBackground.png; sourceTree = "<group>"; };
 		B97EA88A129CAC0C00CF355E /* SampleElementIcon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SampleElementIcon2.png; path = Images/Normal/SampleElementIcon2.png; sourceTree = "<group>"; };
 		B97EA88F129CAC1500CF355E /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = en; path = en.lproj/ElementSelectionView.xib; sourceTree = "<group>"; };
+		B991261D129CC69D005B2C7C /* OptionsGear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OptionsGear.png; path = Images/Normal/OptionsGear.png; sourceTree = "<group>"; };
+		B991261F129CC6C9005B2C7C /* SettingsGear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SettingsGear.png; path = Images/Normal/SettingsGear.png; sourceTree = "<group>"; };
 		B99202DB125181BD006E8CC8 /* Element.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Element.h; sourceTree = "<group>"; };
 		B99202DC125181BD006E8CC8 /* Element.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Element.m; sourceTree = "<group>"; };
+		B9ED72DF129DB90700EE8464 /* SettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingsView.xib; path = Classes/SettingsView.xib; sourceTree = "<group>"; };
 		B9FC9A311276864B006E4CEB /* ElementsForCategory.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ElementsForCategory.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,6 +87,8 @@
 		B94E3EF1129CAA6000C249F8 /* Normal */ = {
 			isa = PBXGroup;
 			children = (
+				B991261F129CC6C9005B2C7C /* SettingsGear.png */,
+				B991261D129CC69D005B2C7C /* OptionsGear.png */,
 				B97EA888129CAC0C00CF355E /* ElementBackground2.png */,
 				B97EA889129CAC0C00CF355E /* PlacementBackground.png */,
 				B97EA88A129CAC0C00CF355E /* SampleElementIcon2.png */,
@@ -115,6 +126,8 @@
 				B99202DC125181BD006E8CC8 /* Element.m */,
 				B97EA885129CABF300CF355E /* ElementSelectionView.h */,
 				B97EA886129CABF300CF355E /* ElementSelectionView.m */,
+				B94B70AB129DB578005A1142 /* SettingsView.h */,
+				B94B70AC129DB578005A1142 /* SettingsView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -138,6 +151,7 @@
 				B950AFBC124EF2C20056309D /* MainWindow.xib */,
 				B950AFC2124EF2C20056309D /* Alchemy_ProViewController.xib */,
 				B97EA88E129CAC1500CF355E /* ElementSelectionView.xib */,
+				B9ED72DF129DB90700EE8464 /* SettingsView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -218,6 +232,9 @@
 				B97EA88B129CAC0C00CF355E /* ElementBackground2.png in Resources */,
 				B97EA88C129CAC0C00CF355E /* PlacementBackground.png in Resources */,
 				B97EA88D129CAC0C00CF355E /* SampleElementIcon2.png in Resources */,
+				B991261E129CC69D005B2C7C /* OptionsGear.png in Resources */,
+				B9912620129CC6C9005B2C7C /* SettingsGear.png in Resources */,
+				B9ED72E0129DB90700EE8464 /* SettingsView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +250,7 @@
 				B99202DD125181BD006E8CC8 /* Element.m in Sources */,
 				B96467A012738B3B000BA1B8 /* Alchemy_ProViewController.m in Sources */,
 				B97EA887129CABF300CF355E /* ElementSelectionView.m in Sources */,
+				B94B70AE129DB578005A1142 /* SettingsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

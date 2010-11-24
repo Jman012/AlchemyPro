@@ -23,6 +23,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B950AFA8124EF2C20056309D"
+            BuildableName = "Alchemy Pro.app"
+            BlueprintName = "Alchemy Pro"
             ReferencedContainer = "container:Alchemy Pro.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

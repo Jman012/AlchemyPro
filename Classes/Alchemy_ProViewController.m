@@ -7,7 +7,7 @@
 //
 
 #import "Alchemy_ProViewController.h"
-#import "ElementSelectionView.h"
+
 
 @implementation Alchemy_ProViewController
 
@@ -33,6 +33,7 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+    settings = [NSUserDefaults standardUserDefaults];
     initiatedElements = [[NSMutableDictionary alloc] init];
     
     //The setup for the double combinations and repective categories
@@ -44,10 +45,11 @@
     elementsForCategory = [[NSDictionary alloc] initWithContentsOfFile:path];
     
     //Get a list of already unlocked Elements, not fully implemented yet
-    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+//    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
     unlockedElements = [settings objectForKey:@"AlchemyUnlockedElements"];
     unlockedCategories = [settings objectForKey:@"AlchemyUnlockedCategories"];
-    allUnlocked = [settings objectForKey:@"AlchemyProAllUnlocked"];
+    allUnlocked = [settings objectForKey:@"AlchemyAllUnlocked"];
+    NSLog(@"%@, %@, %@", unlockedElements, unlockedCategories, allUnlocked);
     if(unlockedElements == nil){
         unlockedElements = [[NSMutableArray alloc] initWithObjects:@"Water", @"Fire", @"Air", @"Earth", nil];
     }
@@ -57,7 +59,7 @@
     if(allUnlocked == nil){
         allUnlocked = [[NSMutableDictionary alloc] init];
     }
-    [settings release];
+//    [settings release];
     [super viewDidLoad];
 }
 
@@ -187,12 +189,15 @@
                     [combinedElement setDelegate:self];
                     
                     if([unlockedElements containsObject:doubleFromDict] == FALSE){
+//                        NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
                         [unlockedElements addObject:doubleFromDict];
+                        [settings setObject:unlockedElements forKey:@"AlchemyUnlockedElements"];
                         NSLog(@"%@ added to unlocked", doubleFromDict);
                         NSString *tempCat = [elementsForCategory objectForKey:doubleFromDict];
                         if([unlockedCategories containsObject:tempCat] == FALSE){
                             NSLog(@"%@ added to unlocked cats", tempCat);
                             [unlockedCategories addObject:tempCat];
+                            [settings setObject:unlockedCategories forKey:@"AlchemyUnlockedCategories"];
                         }
                         NSMutableArray *tempArray = [allUnlocked objectForKey:tempCat];
                         if(tempArray == nil){
@@ -202,6 +207,7 @@
                             [tempArray addObject:[combinedElement elementName]];
                         }
                         [allUnlocked setObject:tempArray forKey:tempCat];
+                        [settings setObject:allUnlocked forKey:@"AlchemyAllUnlocked"];
                     }
                     
                     break;
@@ -212,16 +218,17 @@
 }
 
 - (IBAction)addButtonPushed:(id)sender {
-    ElementSelectionView *chooseElementView = [[ElementSelectionView alloc] 
-                                               initWithNibName:[[NSBundle mainBundle] pathForResource:@"ElementSelectionView" ofType:@"xib"] 
-                                               bundle:nil];
+    ElementSelectionView *chooseElementView = [[ElementSelectionView alloc] initWithNibName:[[NSBundle mainBundle] pathForResource:@"ElementSelectionView" ofType:@"xib"] bundle:nil];
     [chooseElementView giveUnlockedElements:allUnlocked andCats:unlockedCategories];
     [chooseElementView setDelegate:self];
+    chooseElementView.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     [self presentModalViewController:chooseElementView animated:YES];
 }
 
 - (IBAction)infoForElementButtonPushed:(id)sender {
-    [self boardAddElement:@"Water"];
+    SettingsView *settingsView = [[SettingsView alloc] initWithNibName:[[NSBundle mainBundle] pathForResource:@"SettingsView" ofType:@"xib"] bundle:nil];
+    [settingsView setDelegate:self];
+    [self presentModalViewController:settingsView animated:YES];
 }
 
 - (IBAction)removeButtonPushed:(id)sender {
@@ -257,6 +264,22 @@
             [self boardAddElement:@"Air" atPoint:CGPointMake(pt.x - 96 , pt.y - 32)];
             [self boardAddElement:@"Earth" atPoint:CGPointMake(pt.x + 32 , pt.y - 32)];
         }
+    }
+}
+
+- (void)shouldRefreshChangedSettings {
+    unlockedElements = [settings objectForKey:@"AlchemyUnlockedElements"];
+    unlockedCategories = [settings objectForKey:@"AlchemyUnlockedCategories"];
+    allUnlocked = [settings objectForKey:@"AlchemyAllUnlocked"];
+    NSLog(@"%@, %@, %@", unlockedElements, unlockedCategories, allUnlocked);
+    if(unlockedElements == nil){
+        unlockedElements = [[NSMutableArray alloc] initWithObjects:@"Water", @"Fire", @"Air", @"Earth", nil];
+    }
+    if(unlockedCategories == nil){
+        unlockedCategories = [[NSMutableArray alloc] initWithArray:nil];
+    }
+    if(allUnlocked == nil){
+        allUnlocked = [[NSMutableDictionary alloc] init];
     }
 }
 
@@ -302,6 +325,8 @@
     [allUnlocked release];
     
     [selectedElement release];
+    
+    [settings release];
     [super dealloc];
 }
 
