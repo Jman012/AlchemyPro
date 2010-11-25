@@ -28,6 +28,14 @@
     delegate = dlg;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    CGRect frame = mainScrollView.frame;
+    frame.origin.x = frame.size.width * requestedPage;
+    frame.origin.y = 0;
+    
+    [mainScrollView scrollRectToVisible:frame animated:YES];
+}
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     drawnElements = [[NSMutableDictionary alloc] init];
@@ -72,8 +80,8 @@
                 }
                 
             }
-//            [tempScrollView setBackgroundColor:[UIColor redColor]];
         }
+        
         [mainScrollView addSubview:tempScrollView];
         [tempScrollView release];
     }
@@ -135,6 +143,7 @@
 }
 
 - (IBAction)backDoneButtonPushed:(id)sender {
+    [delegate acceptCurrentPage:pageControl.currentPage];
     if(backAndDoneButton.style == UIBarButtonItemStyleBordered){
         [[self parentViewController] dismissModalViewControllerAnimated:YES];
     }
@@ -194,6 +203,10 @@
             [tempElement setSelected:NO];
         }
     }
+}
+
+- (void)scrollToPage:(int)scrollPage {
+    requestedPage = scrollPage;
 }
 
 - (void)didReceiveMemoryWarning {

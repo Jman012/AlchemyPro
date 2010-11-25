@@ -36,6 +36,8 @@
     settings = [NSUserDefaults standardUserDefaults];
     initiatedElements = [[NSMutableDictionary alloc] init];
     
+    selectionViewPage = 0;
+    
     //The setup for the double combinations and repective categories
     NSBundle *myBundle = [NSBundle mainBundle];
     NSString *path = [myBundle pathForResource:@"ElementComboPList" ofType:@"plist"];
@@ -219,7 +221,9 @@
 
 - (IBAction)addButtonPushed:(id)sender {
     ElementSelectionView *chooseElementView = [[ElementSelectionView alloc] initWithNibName:[[NSBundle mainBundle] pathForResource:@"ElementSelectionView" ofType:@"xib"] bundle:nil];
+    [chooseElementView scrollToPage:selectionViewPage];
     [chooseElementView giveUnlockedElements:allUnlocked andCats:unlockedCategories];
+    chooseElementView.view;
     [chooseElementView setDelegate:self];
     chooseElementView.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     [self presentModalViewController:chooseElementView animated:YES];
@@ -281,6 +285,10 @@
     if(allUnlocked == nil){
         allUnlocked = [[NSMutableDictionary alloc] init];
     }
+}
+
+- (void)acceptCurrentPage:(int)page {
+    selectionViewPage = page;
 }
 
 // Override to allow orientations other than the default portrait orientation.

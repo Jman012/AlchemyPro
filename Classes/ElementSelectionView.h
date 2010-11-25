@@ -12,6 +12,7 @@
 @protocol ElementSelectionViewDelegate <NSObject>
 @optional
 - (void)acceptElementsToAdd:(NSArray *)toBeAddedElements;
+- (void)acceptCurrentPage:(int)page;
 @end
     
 
@@ -31,6 +32,8 @@
     NSMutableDictionary         *drawnElements;
     
     BOOL                        pageChangeByControl;
+    
+    int                         requestedPage;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel          *titleLabel;
@@ -51,5 +54,7 @@
 - (IBAction)selectAllPushed:(id)sender;
 - (void)giveUnlockedElements:(NSMutableDictionary *)givenUnlocked andCats:(NSArray *)givenCats;
 - (void)addElement:(NSString *)name toView:(UIScrollView *)view atPoint:(CGPoint)point;
+- (void)scrollToPage:(int)scrollPage;
+
 
 @end

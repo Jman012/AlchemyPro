@@ -36,6 +36,8 @@
     Element                 *selectedElement;
     
     NSUserDefaults          *settings;
+    
+    int                     selectionViewPage;
 }
 
 @property (nonatomic, retain) IBOutlet UIView       *boardView;
