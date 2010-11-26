@@ -81,6 +81,7 @@
     if([element isValid])
         [self.boardView addSubview:element];
     [initiatedElements setObject:element forKey:ID];
+    [ID release];
     return element;
 
 }

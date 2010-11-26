@@ -98,6 +98,7 @@
     if([element isValid])
         [view addSubview:element];
     [drawnElements setObject:element forKey:ID];
+    [ID release];
     [element release];
 }
 
@@ -157,6 +158,8 @@
         }
         selectedElements = [[NSArray alloc] initWithArray:(NSArray *)tempArray];
         [delegate acceptElementsToAdd:selectedElements];
+        [tempArray release];
+        [selectedElements release];
         [[self parentViewController] dismissModalViewControllerAnimated:YES];
     }
 }
